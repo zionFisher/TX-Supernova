@@ -1878,7 +1878,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 11
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1538230224}
@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interactable: 1
-  SetCameraMode: 118
+  SetCameraAndMovementMode: 118
   SprintKeyCode: 304
   JumpKeyCode: 32
   FireKeyCode: 323
@@ -2800,7 +2800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3831792d8c0e58e4b9b7aabe080a99e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThirdRDPersonCameraMode: 1
+  CharacterCameraMode: 0
   ThirdRDPersonCamera: {fileID: 762311859}
   TwoDotFiveDCamera: {fileID: 77450432}
 --- !u!4 &1453703189
@@ -6039,7 +6039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a75b121eba5f4499d1ca674ee806d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThirdRDPersonMoveMode: 1
+  CharacterMovementMode: 0
   TurnSpeed: 10
   SprintKeyCode: 304
   JumpKeyCode: 32

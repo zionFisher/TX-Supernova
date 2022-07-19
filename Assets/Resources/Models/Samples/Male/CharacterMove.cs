@@ -57,36 +57,55 @@ public class CharacterMove : MonoBehaviour
 
     private void ThirdRDPersonMove()
     {
-        speed = Mathf.Abs(moveInput.x) + Mathf.Abs(moveInput.y);
-        speed = Mathf.Clamp(speed, 0f, 1f);
-        speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref smoothVelocity, 0.1f); // smooth speed
-        anim.SetFloat("Speed", speed);
-        UpdateOrientation();
+        UpdateSpeed();
+        UpdateThirdRDPersonForward();
     }
 
     private void TwoDotFiveDMove()
     {
+        UpdateSpeed();
+        UpdateTwoDotFiveDForward();
+    }
 
+    private void UpdateSpeed()
+    {
+        speed = Mathf.Abs(moveInput.x) + Mathf.Abs(moveInput.y);
+        speed = Mathf.Clamp(speed, 0f, 1f);
+        speed = Mathf.SmoothDamp(anim.GetFloat("Speed"), speed, ref smoothVelocity, 0.1f); // smooth speed
+        anim.SetFloat("Speed", speed);
+    }
+
+    private void UpdateThirdRDPersonForward()
+    {
+        Vector3 right = mainCamera.transform.TransformDirection(Vector3.right);
+        Vector3 forward = mainCamera.transform.TransformDirection(Vector3.forward);
+
+        forward.y = 0;
+        localForward = moveInput.x * right + moveInput.y * forward;
+        UpdateOrientation();
+    }
+
+    private void UpdateTwoDotFiveDForward()
+    {
+        Vector3 right = Vector3.right;
+        Vector3 forward = Vector3.forward;
+
+        localForward = moveInput.x * right + moveInput.y * forward;
+        UpdateOrientation();
     }
 
     private void UpdateOrientation()
     {
-        var right = mainCamera.transform.TransformDirection(Vector3.right);
-        var forward = mainCamera.transform.TransformDirection(Vector3.forward);
-
-        forward.y = 0;
-        localForward = moveInput.x * right + moveInput.y * forward;
-
         if (moveInput != Vector2.zero && localForward.magnitude > 0.1f)
         {
             Vector3 lookDirection = localForward.normalized;
             Quaternion freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
-            var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
-            var eulerY = transform.eulerAngles.y;
+            float diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
+            float eulerY = transform.eulerAngles.y;
 
             if (diferenceRotation != 0)
                 eulerY = freeRotation.eulerAngles.y;
-            var euler = new Vector3(0, eulerY, 0);
+            Vector3 euler = new Vector3(0, eulerY, 0);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), TurnSpeed * Time.deltaTime);
         }

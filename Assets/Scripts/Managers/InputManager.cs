@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputManager : Singleton<InputManager>
 {
     public bool Interactable = true;
-    public KeyCode SetCameraMode = KeyCode.V;
+    public KeyCode SetCameraAndMovementMode = KeyCode.V;
     public KeyCode SprintKeyCode = KeyCode.LeftShift;
     public KeyCode JumpKeyCode = KeyCode.Space;
     public KeyCode FireKeyCode = KeyCode.Mouse0;
@@ -35,10 +35,11 @@ public class InputManager : Singleton<InputManager>
         // Movement
         HandleMovement();
 
-        // Camera Mode
-        if (Input.GetKey(SetCameraMode))
+        // Camera and Movement Mode
+        if (Input.GetKey(SetCameraAndMovementMode))
         {
             HandleCameraMode();
+            HandleMovementMode();
         }
     }
 
@@ -55,14 +56,14 @@ public class InputManager : Singleton<InputManager>
         PlayerMove.Sprint(isSprinting);
     }
 
-    private void HandleMoveInput()
-    {
-
-    }
-
     private void HandleCameraMode()
     {
         CameraManager.Instance.ChangeCharacterCameraMode();
         StartCoroutine(Utility.InvokeBeforeAndAfterSecondes(1.0f, () => { Interactable = false; }, () => { Interactable = true; }));
+    }
+
+    private void HandleMovementMode()
+    {
+        PlayerMove.ChangeMoveMode();
     }
 }
