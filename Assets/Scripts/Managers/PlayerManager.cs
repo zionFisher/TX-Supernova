@@ -19,4 +19,15 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         PlayerMesh.SetActive(active);
     }
+
+    public void HandlePlayerAim(bool aiming)
+    {
+        if (CameraManager.Instance.CharacterCameraMode == CameraMode.TwoDotFiveD)
+            return;
+
+        if (aiming)
+            SetPlayerMeshActive(false);
+        else
+            SetPlayerMeshActive(true);
+    }
 }

@@ -17,7 +17,7 @@
       - use HDRI Sky (optional)
       - 
    - 角色移动及动画
-   - 摄像机跟随（第一+第三人称）
+   - 摄像机跟随（第一+第三人称+FPS view）
    - 发射射线并显示出来
    - 射线折射和反射（注意最大弹射次数的限制）
 2. 完成 Learn Visual Effect 中的 Shader Graph 教程

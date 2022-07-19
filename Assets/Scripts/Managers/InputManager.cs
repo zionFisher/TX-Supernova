@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager : Singleton<InputManager>
 {
-    public bool Interactable = true;
+    public bool KeyInteractable = true;
     public CharacterMove PlayerMove;
 
     public KeyCode SetCameraAndMovementMode = KeyCode.V;
@@ -12,7 +12,6 @@ public class InputManager : Singleton<InputManager>
     public KeyCode JumpKeyCode              = KeyCode.Space;
     public KeyCode FireKeyCode              = KeyCode.Mouse0;
     public KeyCode AimKeyCode               = KeyCode.Mouse1;
-
 
     private void Awake()
     {
@@ -23,10 +22,18 @@ public class InputManager : Singleton<InputManager>
     {
         Utility.CheckUnassignedVar<CharacterMove>(PlayerMove);
     }
+    
+    // Process Fixed Event
+    private void FixedUpdate()
+    {
+        // Movement
+        HandleMovement();
+    }
 
+    // Process Key Event
     private void Update()
     {
-        if (!Interactable)
+        if (!KeyInteractable)
             return;
 
         // Camera and Movement Mode
@@ -57,15 +64,6 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (!Interactable)
-            return;
-
-        // Movement
-        HandleMovement();
-    }
-
     private void HandleMovement()
     {
         Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -77,7 +75,7 @@ public class InputManager : Singleton<InputManager>
     private void HandleCameraMode()
     {
         CameraManager.Instance.ChangeCharacterCameraMode();
-        StartCoroutine(Utility.InvokeBeforeAndAfterSecondes(1.0f, () => { Interactable = false; }, () => { Interactable = true; }));
+        StartCoroutine(Utility.InvokeBeforeAndAfterSecondes(2.0f, () => { KeyInteractable = false; }, () => { KeyInteractable = true; }));
     }
 
     private void HandleMovementMode()
@@ -102,13 +100,13 @@ public class InputManager : Singleton<InputManager>
 
     private void HandleAimKeyDown()
     {
-        CameraManager.Instance.EnableFPSCamera();
-        PlayerManager.Instance.SetPlayerMeshActive(false);
+        CameraManager.Instance.HandleCameraAim(true);
+        PlayerManager.Instance.HandlePlayerAim(true);
     }
 
     private void HandleAimKeyUp()
     {
-        CameraManager.Instance.DisableFPSCamera();
-        PlayerManager.Instance.SetPlayerMeshActive(true);
+        CameraManager.Instance.HandleCameraAim(false);
+        PlayerManager.Instance.HandlePlayerAim(false);
     }
 }

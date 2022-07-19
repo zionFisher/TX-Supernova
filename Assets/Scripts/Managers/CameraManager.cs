@@ -10,18 +10,33 @@ public enum CameraMode
 
 public class CameraManager : Singleton<CameraManager>
 {
-    public CameraMode CharacterCameraMode = CameraMode.ThirdRDPerson;
+    public CameraMode CharacterCameraMode
+    {
+        get => _characterCameraMode;
+        set
+        {
+            if (value == _characterCameraMode)
+                return;
+
+            _characterCameraMode = value;
+            UpdateCameraPriority(_characterCameraMode);
+        }
+    }
+
+    private CameraMode _characterCameraMode;
+
     public CinemachineVirtualCamera ThirdRDPersonCamera;
     public CinemachineVirtualCamera TwoDotFiveDCamera;
     public CinemachineVirtualCamera FPSCamera;
 
-    private int characterCameraPriority = 10;
+    private int characterCameraStandardPriority = 10;
 
     private void Start()
     {
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(ThirdRDPersonCamera);
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(TwoDotFiveDCamera);
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(FPSCamera);
+        CharacterCameraMode = CameraMode.ThirdRDPerson;
     }
 
     private void Update()
@@ -35,31 +50,52 @@ public class CameraManager : Singleton<CameraManager>
             CharacterCameraMode = CameraMode.TwoDotFiveD;
         else if (CharacterCameraMode == CameraMode.TwoDotFiveD)
             CharacterCameraMode = CameraMode.ThirdRDPerson;
-        
-        AdjustCharacterCameraMode();
     }
 
-    public void EnableFPSCamera()
+    public void HandleCameraAim(bool aiming)
     {
-        FPSCamera.Priority = characterCameraPriority + 3;
-    }
-
-    public void DisableFPSCamera()
-    {
-        FPSCamera.Priority = characterCameraPriority - 3;
-    }
-
-    private void AdjustCharacterCameraMode()
-    {
-        if (CharacterCameraMode == CameraMode.ThirdRDPerson)
+        if (aiming)
         {
-            ThirdRDPersonCamera.Priority = characterCameraPriority + 1;
-            TwoDotFiveDCamera.Priority = characterCameraPriority - 1;
+            if (CharacterCameraMode == CameraMode.ThirdRDPerson)
+                CharacterCameraMode = CameraMode.FPS;
         }
-        else if (CharacterCameraMode == CameraMode.TwoDotFiveD)
+        else
         {
-            ThirdRDPersonCamera.Priority = characterCameraPriority - 1;
-            TwoDotFiveDCamera.Priority = characterCameraPriority + 1;
+            if (CharacterCameraMode == CameraMode.FPS)
+                CharacterCameraMode = CameraMode.ThirdRDPerson;
+        }
+    }
+
+    private void UpdateCameraPriority(CameraMode mode)
+    {
+        // reset priority
+        ThirdRDPersonCamera.Priority = characterCameraStandardPriority;
+        TwoDotFiveDCamera.Priority = characterCameraStandardPriority;
+        FPSCamera.Priority = characterCameraStandardPriority;
+
+        // set priority
+        switch (mode)
+        {
+            case CameraMode.ThirdRDPerson:
+            {
+                ThirdRDPersonCamera.Priority += 2;
+                break;
+            }
+            case CameraMode.TwoDotFiveD:
+            {
+                TwoDotFiveDCamera.Priority += 2;
+                break;
+            }
+            case CameraMode.FPS:
+            {
+                FPSCamera.Priority += 2;
+                break;
+            }
+            default:
+            {
+                Debug.LogError("No such camera mode, please check input.");
+                break;
+            };
         }
     }
 }
