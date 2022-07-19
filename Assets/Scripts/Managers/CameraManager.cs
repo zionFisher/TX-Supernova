@@ -5,7 +5,7 @@ using Cinemachine;
 
 public enum CameraMode
 {
-    ThirdRDPerson, TwoDotFiveD, DollyTrack
+    ThirdRDPerson, TwoDotFiveD, FPS, DollyTrack
 }
 
 public class CameraManager : Singleton<CameraManager>
@@ -13,6 +13,7 @@ public class CameraManager : Singleton<CameraManager>
     public CameraMode CharacterCameraMode = CameraMode.ThirdRDPerson;
     public CinemachineVirtualCamera ThirdRDPersonCamera;
     public CinemachineVirtualCamera TwoDotFiveDCamera;
+    public CinemachineVirtualCamera FPSCamera;
 
     private int characterCameraPriority = 10;
 
@@ -20,6 +21,7 @@ public class CameraManager : Singleton<CameraManager>
     {
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(ThirdRDPersonCamera);
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(TwoDotFiveDCamera);
+        Utility.CheckUnassignedVar<CinemachineVirtualCamera>(FPSCamera);
     }
 
     private void Update()
@@ -35,6 +37,16 @@ public class CameraManager : Singleton<CameraManager>
             CharacterCameraMode = CameraMode.ThirdRDPerson;
         
         AdjustCharacterCameraMode();
+    }
+
+    public void EnableFPSCamera()
+    {
+        FPSCamera.Priority = characterCameraPriority + 3;
+    }
+
+    public void DisableFPSCamera()
+    {
+        FPSCamera.Priority = characterCameraPriority - 3;
     }
 
     private void AdjustCharacterCameraMode()

@@ -5,11 +5,14 @@ using UnityEngine;
 public class InputManager : Singleton<InputManager>
 {
     public bool Interactable = true;
-    public KeyCode SetCameraAndMovementMode = KeyCode.V;
-    public KeyCode SprintKeyCode = KeyCode.LeftShift;
-    public KeyCode JumpKeyCode = KeyCode.Space;
-    public KeyCode FireKeyCode = KeyCode.Mouse0;
     public CharacterMove PlayerMove;
+
+    public KeyCode SetCameraAndMovementMode = KeyCode.V;
+    public KeyCode SprintKeyCode            = KeyCode.LeftShift;
+    public KeyCode JumpKeyCode              = KeyCode.Space;
+    public KeyCode FireKeyCode              = KeyCode.Mouse0;
+    public KeyCode AimKeyCode               = KeyCode.Mouse1;
+
 
     private void Awake()
     {
@@ -25,6 +28,33 @@ public class InputManager : Singleton<InputManager>
     {
         if (!Interactable)
             return;
+
+        // Camera and Movement Mode
+        if (Input.GetKey(SetCameraAndMovementMode))
+        {
+            HandleCameraMode();
+            HandleMovementMode();
+        }
+
+        // Fire
+        if (Input.GetKeyDown(FireKeyCode))
+        {
+            HandleFireKeyDown();
+        }
+        if (Input.GetKeyUp(FireKeyCode))
+        {
+            HandleFireKeyUp();
+        }
+
+        // Aim
+        if (Input.GetKeyDown(AimKeyCode))
+        {
+            HandleAimKeyDown();
+        }
+        if (Input.GetKeyUp(AimKeyCode))
+        {
+            HandleAimKeyUp();
+        }
     }
 
     private void FixedUpdate()
@@ -34,13 +64,6 @@ public class InputManager : Singleton<InputManager>
 
         // Movement
         HandleMovement();
-
-        // Camera and Movement Mode
-        if (Input.GetKey(SetCameraAndMovementMode))
-        {
-            HandleCameraMode();
-            HandleMovementMode();
-        }
     }
 
     private void HandleMovement()
@@ -48,11 +71,6 @@ public class InputManager : Singleton<InputManager>
         Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         PlayerMove.Move(moveInput);
         bool isSprinting = Input.GetKey(SprintKeyCode) && moveInput != Vector2.zero;
-        HandleSprint(isSprinting);
-    }
-
-    private void HandleSprint(bool isSprinting)
-    {
         PlayerMove.Sprint(isSprinting);
     }
 
@@ -65,5 +83,32 @@ public class InputManager : Singleton<InputManager>
     private void HandleMovementMode()
     {
         PlayerMove.ChangeMoveMode();
+    }
+
+    private void HandleJumpKey()
+    {
+        // TODO:
+    }
+
+    private void HandleFireKeyDown()
+    {
+        
+    }
+
+    private void HandleFireKeyUp()
+    {
+        
+    }
+
+    private void HandleAimKeyDown()
+    {
+        CameraManager.Instance.EnableFPSCamera();
+        PlayerManager.Instance.SetPlayerMeshActive(false);
+    }
+
+    private void HandleAimKeyUp()
+    {
+        CameraManager.Instance.DisableFPSCamera();
+        PlayerManager.Instance.SetPlayerMeshActive(true);
     }
 }

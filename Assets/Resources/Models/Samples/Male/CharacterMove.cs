@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum MovementMode
 {
-    ThirdRDPerson, TwoDotFiveD
+    ThirdRDPerson, TwoDotFiveD, FPS
 }
 
 public class CharacterMove : MonoBehaviour
@@ -19,7 +19,6 @@ public class CharacterMove : MonoBehaviour
 
     private float speed = 0f;
     private float smoothVelocity = 0f;
-    private bool isSprinting = false;
 
     private Vector3 localForward;
     private Vector2 moveInput;
