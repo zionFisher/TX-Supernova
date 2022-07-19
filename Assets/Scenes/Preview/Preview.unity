@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2484.541, g: 2533.6328, b: 3604.8438, a: 1}
+  m_IndirectSpecularColor: {r: 2484.541, g: 2533.6562, b: 3604.8281, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyInteractable: 1
-  PlayerMove: {fileID: 136696894902315320}
+  AxisInteractable: 1
   SetCameraAndMovementMode: 118
   SprintKeyCode: 304
   JumpKeyCode: 32
@@ -2610,7 +2610,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 13
+  m_Priority: 7
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1538230224}
@@ -3309,7 +3309,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 30
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -3335,7 +3335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.80866027, z: -3.905}
+  m_LocalPosition: {x: 0.1, y: 1.6660254, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3532,6 +3532,8 @@ MonoBehaviour:
   PlayerRoot: {fileID: 1967615357909133}
   PlayerHead: {fileID: 1538230223}
   PlayerMesh: {fileID: 1766523750979357}
+  playerAnim: {fileID: 136696894902315320}
+  playerMove: {fileID: 136696894902315321}
 --- !u!4 &1829179965
 Transform:
   m_ObjectHideFlags: 0
@@ -5112,6 +5114,7 @@ GameObject:
   - component: {fileID: 95487103688967831}
   - component: {fileID: 54563484687046365}
   - component: {fileID: 136696894902315319}
+  - component: {fileID: 136696894902315321}
   - component: {fileID: 136696894902315320}
   m_Layer: 0
   m_Name: Player
@@ -6331,13 +6334,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1967615357909133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22a75b121eba5f4499d1ca674ee806d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc08d2b18a62c64db840079ed31eaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &136696894902315321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967615357909133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0783d5441fa47542b0549cc4e5f56b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterMovementMode: 0
   TurnSpeed: 10
-  SprintKeyCode: 304
-  JumpKeyCode: 32
 --- !u!137 &137876666343651523
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
