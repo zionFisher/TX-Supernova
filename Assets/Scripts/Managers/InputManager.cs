@@ -38,7 +38,7 @@ public class InputManager : Singleton<InputManager>
         // Camera Mode
         if (Input.GetKey(SetCameraMode))
         {
-
+            HandleCameraMode();
         }
     }
 
@@ -58,5 +58,11 @@ public class InputManager : Singleton<InputManager>
     private void HandleMoveInput()
     {
 
+    }
+
+    private void HandleCameraMode()
+    {
+        CameraManager.Instance.ChangeCharacterCameraMode();
+        StartCoroutine(Utility.InvokeBeforeAndAfterSecondes(1.0f, () => { Interactable = false; }, () => { Interactable = true; }));
     }
 }

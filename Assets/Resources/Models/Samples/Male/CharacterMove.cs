@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MovementMode
+{
+    ThirdRDPerson, TwoDotFiveD
+}
+
 public class CharacterMove : MonoBehaviour
 {
-    public bool ThirdRDPersonMoveMode = true;
+    public MovementMode CharacterMovementMode = MovementMode.ThirdRDPerson;
     public float TurnSpeed = 10f;
     public KeyCode SprintKeyCode = KeyCode.LeftShift;
     public KeyCode JumpKeyCode = KeyCode.Space;
@@ -27,18 +32,21 @@ public class CharacterMove : MonoBehaviour
         Utility.CheckUnassignedVar<Camera>(mainCamera);
     }
 
-    public void SetMoveMode()
+    public void ChangeMoveMode()
     {
-        ThirdRDPersonMoveMode = !ThirdRDPersonMoveMode;
+        if (CharacterMovementMode == MovementMode.ThirdRDPerson)
+            CharacterMovementMode = MovementMode.TwoDotFiveD;
+        else if (CharacterMovementMode == MovementMode.TwoDotFiveD)
+            CharacterMovementMode = MovementMode.ThirdRDPerson;
     }
 
     public void Move(Vector2 moveInput)
     {
         this.moveInput = moveInput;
 
-        if (ThirdRDPersonMoveMode)
+        if (CharacterMovementMode == MovementMode.ThirdRDPerson)
             ThirdRDPersonMove();
-        else
+        else if (CharacterMovementMode == MovementMode.TwoDotFiveD)
             TwoDotFiveDMove();
     }
 
