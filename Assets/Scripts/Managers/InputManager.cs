@@ -5,27 +5,20 @@ using UnityEngine;
 public class InputManager : Singleton<InputManager>
 {
     public bool KeyInteractable = true;
-    public CharacterMove PlayerMove;
+    public bool AxisInteractable = true;
 
     public KeyCode SetCameraAndMovementMode = KeyCode.V;
     public KeyCode SprintKeyCode            = KeyCode.LeftShift;
     public KeyCode JumpKeyCode              = KeyCode.Space;
     public KeyCode FireKeyCode              = KeyCode.Mouse0;
     public KeyCode AimKeyCode               = KeyCode.Mouse1;
-
-    private void Awake()
-    {
-
-    }
-
-    private void Start()
-    {
-        Utility.CheckUnassignedVar<CharacterMove>(PlayerMove);
-    }
     
     // Process Fixed Event
     private void FixedUpdate()
     {
+        if (!AxisInteractable)
+            return;
+
         // Movement
         HandleMovement();
     }
@@ -67,9 +60,10 @@ public class InputManager : Singleton<InputManager>
     private void HandleMovement()
     {
         Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        PlayerMove.Move(moveInput);
         bool isSprinting = Input.GetKey(SprintKeyCode) && moveInput != Vector2.zero;
-        PlayerMove.Sprint(isSprinting);
+
+        PlayerManager.Instance.PlayerMove(moveInput);
+        PlayerManager.Instance.PlayerSprint(isSprinting);
     }
 
     private void HandleCameraMode()
@@ -80,7 +74,7 @@ public class InputManager : Singleton<InputManager>
 
     private void HandleMovementMode()
     {
-        PlayerMove.ChangeMoveMode();
+        PlayerManager.Instance.ChangePlayerMoveMode();
     }
 
     private void HandleJumpKey()
@@ -90,23 +84,23 @@ public class InputManager : Singleton<InputManager>
 
     private void HandleFireKeyDown()
     {
-        
+        // TODO:
     }
 
     private void HandleFireKeyUp()
     {
-        
+        // TODO:
     }
 
     private void HandleAimKeyDown()
     {
-        CameraManager.Instance.HandleCameraAim(true);
-        PlayerManager.Instance.HandlePlayerAim(true);
+        CameraManager.Instance.CameraAim(true);
+        PlayerManager.Instance.PlayerAim(true);
     }
 
     private void HandleAimKeyUp()
     {
-        CameraManager.Instance.HandleCameraAim(false);
-        PlayerManager.Instance.HandlePlayerAim(false);
+        CameraManager.Instance.CameraAim(false);
+        PlayerManager.Instance.PlayerAim(false);
     }
 }

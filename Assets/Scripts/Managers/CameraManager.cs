@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public enum CameraMode
-{
-    ThirdRDPerson, TwoDotFiveD, FPS, DollyTrack
-}
-
 public class CameraManager : Singleton<CameraManager>
 {
     public CameraMode CharacterCameraMode
@@ -24,12 +19,11 @@ public class CameraManager : Singleton<CameraManager>
     }
 
     private CameraMode _characterCameraMode;
+    private int characterCameraStandardPriority = 10;
 
     public CinemachineVirtualCamera ThirdRDPersonCamera;
     public CinemachineVirtualCamera TwoDotFiveDCamera;
     public CinemachineVirtualCamera FPSCamera;
-
-    private int characterCameraStandardPriority = 10;
 
     private void Start()
     {
@@ -37,11 +31,6 @@ public class CameraManager : Singleton<CameraManager>
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(TwoDotFiveDCamera);
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(FPSCamera);
         CharacterCameraMode = CameraMode.ThirdRDPerson;
-    }
-
-    private void Update()
-    {
-        
     }
 
     public void ChangeCharacterCameraMode()
@@ -52,7 +41,7 @@ public class CameraManager : Singleton<CameraManager>
             CharacterCameraMode = CameraMode.ThirdRDPerson;
     }
 
-    public void HandleCameraAim(bool aiming)
+    public void CameraAim(bool aiming)
     {
         if (aiming)
         {

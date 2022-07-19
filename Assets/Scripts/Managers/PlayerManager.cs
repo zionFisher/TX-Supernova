@@ -8,6 +8,9 @@ public class PlayerManager : Singleton<PlayerManager>
     public GameObject PlayerHead;
     public GameObject PlayerMesh;
 
+    [SerializeField] private PlayerAnimation playerAnim;
+    [SerializeField] private PlayerMovement playerMove;
+
     private void Start()
     {
         Utility.CheckUnassignedVar<GameObject>(PlayerRoot);
@@ -20,7 +23,7 @@ public class PlayerManager : Singleton<PlayerManager>
         PlayerMesh.SetActive(active);
     }
 
-    public void HandlePlayerAim(bool aiming)
+    public void PlayerAim(bool aiming)
     {
         if (CameraManager.Instance.CharacterCameraMode == CameraMode.TwoDotFiveD)
             return;
@@ -29,5 +32,20 @@ public class PlayerManager : Singleton<PlayerManager>
             SetPlayerMeshActive(false);
         else
             SetPlayerMeshActive(true);
+    }
+
+    public void PlayerMove(Vector2 moveInput)
+    {
+        playerMove.Move(moveInput);
+    }
+
+    public void PlayerSprint(bool isSprinting)
+    {
+        playerMove.Sprint(isSprinting);
+    }
+
+    public void ChangePlayerMoveMode()
+    {
+        playerMove.ChangeMoveMode();
     }
 }
