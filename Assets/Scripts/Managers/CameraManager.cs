@@ -46,12 +46,16 @@ public class CameraManager : Singleton<CameraManager>
         if (aiming)
         {
             if (CharacterCameraMode == CameraMode.ThirdRDPerson)
-                CharacterCameraMode = CameraMode.FPS;
+                CharacterCameraMode = CameraMode.FPS3D;
+            if (CharacterCameraMode == CameraMode.TwoDotFiveD)
+                CharacterCameraMode = CameraMode.FPS2Dot5D;
         }
         else
         {
-            if (CharacterCameraMode == CameraMode.FPS)
+            if (CharacterCameraMode == CameraMode.FPS3D)
                 CharacterCameraMode = CameraMode.ThirdRDPerson;
+            if (CharacterCameraMode == CameraMode.FPS2Dot5D)
+                CharacterCameraMode = CameraMode.TwoDotFiveD;
         }
     }
 
@@ -75,9 +79,13 @@ public class CameraManager : Singleton<CameraManager>
                 TwoDotFiveDCamera.Priority += 2;
                 break;
             }
-            case CameraMode.FPS:
+            case CameraMode.FPS3D:
             {
                 FPSCamera.Priority += 2;
+                break;
+            }
+            case CameraMode.FPS2Dot5D:
+            {
                 break;
             }
             default:

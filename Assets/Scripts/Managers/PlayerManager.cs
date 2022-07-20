@@ -47,7 +47,10 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void PlayerShot()
     {
-        playerShot.Shot();
+        if (CameraManager.Instance.CharacterCameraMode != CameraMode.FPS3D && CameraManager.Instance.CharacterCameraMode != CameraMode.FPS2Dot5D)
+            return;
+
+        playerShot.Shot(2);
     }
 
     public void PlayerStopShot()
