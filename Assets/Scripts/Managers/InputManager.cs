@@ -84,12 +84,12 @@ public class InputManager : Singleton<InputManager>
 
     private void HandleFireKeyDown()
     {
-        // TODO:
+        PlayerManager.Instance.PlayerShot();
     }
 
     private void HandleFireKeyUp()
     {
-        // TODO:
+        PlayerManager.Instance.PlayerStopShot();
     }
 
     private void HandleAimKeyDown()

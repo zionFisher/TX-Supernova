@@ -7,3 +7,8 @@ public enum MovementMode
 {
     ThirdRDPerson, TwoDotFiveD, FPS
 }
+
+public enum ShotState
+{
+    StandBy, Shoting
+}

@@ -10,6 +10,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     [SerializeField] private PlayerAnimation playerAnim;
     [SerializeField] private PlayerMovement playerMove;
+    [SerializeField] private PlayerShot playerShot;
 
     private void Start()
     {
@@ -42,6 +43,16 @@ public class PlayerManager : Singleton<PlayerManager>
     public void PlayerSprint(bool isSprinting)
     {
         playerMove.Sprint(isSprinting);
+    }
+
+    public void PlayerShot()
+    {
+        playerShot.Shot();
+    }
+
+    public void PlayerStopShot()
+    {
+        playerShot.Clear();
     }
 
     public void ChangePlayerMoveMode()
