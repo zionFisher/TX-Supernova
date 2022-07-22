@@ -75,7 +75,8 @@ public class InputManager : Singleton<InputManager>
 
     private void HandleJumpKeyDown()
     {
-        // TODO:
+        // trigger PlayerJump Evvent
+        InputEventManager.TriggerPlayerJump();
     }
 
     private void HandleFireKeyDown()
