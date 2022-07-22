@@ -56,7 +56,6 @@ public class PlayerShot : MonoBehaviour
 
     private void UpdateLaserBeam()
     {
-        LightCreator.SetPosition(0, LightLauncher.position);
         CastFirstLaserBeam();
     }
 
@@ -70,6 +69,7 @@ public class PlayerShot : MonoBehaviour
 
     private void CastFirstLaserBeam()
     {
+        LightCreator.SetPosition(0, LightLauncher.position);
         if (LightCreator.positionCount <= 1)
             return;
 
@@ -86,7 +86,11 @@ public class PlayerShot : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             LightCreator.SetPosition(1, hit.point);
-            CastLaserBeam(hit, 2);
+            CastRestLaserBeam(2, hit, hit.point, LightLauncher.position);
+        }
+        else
+        {
+            IgnoreRestBeam(2);
         }
     }
 
@@ -106,27 +110,60 @@ public class PlayerShot : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 LightCreator.SetPosition(1, hit.point);
-                CastLaserBeam(hit, 2);
+                CastRestLaserBeam(2, hit, hit.point, LightLauncher.position);
+            }
+            else
+            {
+                IgnoreRestBeam(2);
             }
         }
     }
 
-    private void CastLaserBeam(RaycastHit hitInfo, int positionIndex)
+    private void IgnoreRestBeam(int positionIndex)
     {
         if (positionIndex >= LightCreator.positionCount)
             return;
 
-        // reflect mode only currently
-        // TODO: add refract mode
-        Vector3 inVec = hitInfo.point - LightLauncher.position;
-        Vector3 reflectVec = Vector3.Reflect(inVec, hitInfo.normal);
+        LightCreator.SetPosition(positionIndex, LightCreator.GetPosition(positionIndex - 1));
+        IgnoreRestBeam(positionIndex + 1);
+    }
 
-        Ray ray = new Ray(hitInfo.point, reflectVec);
-        if (Physics.Raycast(ray, out RaycastHit reflectHit, 1000, layerMask))
-            LightCreator.SetPosition(positionIndex, reflectHit.point);
-        else
-            LightCreator.SetPosition(positionIndex, LightCreator.GetPosition(positionIndex - 1));
+    private void CastRestLaserBeam(int positionIndex, RaycastHit hitInfo, Vector3 curPosition, Vector3 prePosition)
+    {
+        if (positionIndex >= LightCreator.positionCount)
+            return;
 
-        CastLaserBeam(reflectHit, positionIndex + 1);
+        if (hitInfo.transform.tag != "Reflect" && hitInfo.transform.tag != "Refract")
+        {
+            IgnoreRestBeam(positionIndex);
+            return;
+        }
+
+        if (hitInfo.transform.tag == "Reflect")
+        {
+            Vector3 inVec = curPosition - prePosition;
+            Vector3 reflectVec = Vector3.Reflect(inVec, hitInfo.normal);
+
+            Ray ray = new Ray(hitInfo.point, reflectVec);
+            if (Physics.Raycast(ray, out RaycastHit reflectHit))
+            {
+                LightCreator.SetPosition(positionIndex, reflectHit.point);
+                CastRestLaserBeam(positionIndex + 1, reflectHit, reflectHit.point, curPosition);
+            }
+            else
+            {
+                IgnoreRestBeam(positionIndex);
+            }
+        }
+
+        if (hitInfo.transform.tag == "Refract")
+        {
+
+        }
+    }
+
+    private void CastSingleLaserBeam()
+    {
+
     }
 }
