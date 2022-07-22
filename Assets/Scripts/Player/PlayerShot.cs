@@ -82,7 +82,7 @@ public class PlayerShot : MonoBehaviour
 
     private void CastFirstLaserBeamThirdRDPerson()
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)Screen.width / 2f, (float)Screen.height / 2f, 0));
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             LightCreator.SetPosition(1, hit.point);
@@ -90,7 +90,7 @@ public class PlayerShot : MonoBehaviour
         }
         else
         {
-            IgnoreRestBeam(2);
+            IgnoreRestBeam(1);
         }
     }
 
@@ -114,7 +114,7 @@ public class PlayerShot : MonoBehaviour
             }
             else
             {
-                IgnoreRestBeam(2);
+                IgnoreRestBeam(1);
             }
         }
     }

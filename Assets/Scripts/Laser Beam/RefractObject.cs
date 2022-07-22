@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class RefractObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float RefractFactor
     {
-        
+        get => _refractFactor;
+        set
+        {
+            if (value == _refractFactor)
+                return;
+
+            _refractFactor = value;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private float _refractFactor;
 }
