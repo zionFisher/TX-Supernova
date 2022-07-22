@@ -17,6 +17,25 @@ public class PlayerManager : Singleton<PlayerManager>
         Utility.CheckUnassignedVar<GameObject>(PlayerRoot);
         Utility.CheckUnassignedVar<GameObject>(PlayerHead);
         Utility.CheckUnassignedVar<GameObject>(PlayerMesh);
+
+        InputEventManager.EventPlayerMove += PlayerMove;
+        InputEventManager.EventPlayerSprint += PlayerSprint;
+        InputEventManager.EventChangePlayerMoveMode += ChangePlayerMoveMode;
+        InputEventManager.EventPlayerBeginShot += PlayerShot;
+        InputEventManager.EventPlayerEndShot += PlayerStopShot;
+        InputEventManager.EventPlayerCameraAim += PlayerAim;
+    }
+
+    protected override void OnDestroy()
+    {
+        InputEventManager.EventPlayerMove -= PlayerMove;
+        InputEventManager.EventPlayerSprint -= PlayerSprint;
+        InputEventManager.EventChangePlayerMoveMode -= ChangePlayerMoveMode;
+        InputEventManager.EventPlayerBeginShot -= PlayerShot;
+        InputEventManager.EventPlayerEndShot -= PlayerAim;
+        InputEventManager.EventPlayerCameraAim -= PlayerAim;
+
+        base.OnDestroy();
     }
 
     public void SetPlayerMeshActive(bool active)
@@ -26,7 +45,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void PlayerAim()
     {
-        if (CameraManager.Instance.CharacterCameraMode == CameraMode.TwoDotFiveD)
+        if (CameraManager.Instance.PlayerCameraMode == CameraMode.TwoDotFiveD)
             return;
 
         if (CameraManager.Instance.CameraAiming == true)
@@ -47,7 +66,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void PlayerShot()
     {
-        if (CameraManager.Instance.CharacterCameraMode != CameraMode.FPS3D && CameraManager.Instance.CharacterCameraMode != CameraMode.FPS2Dot5D)
+        if (CameraManager.Instance.PlayerCameraMode != CameraMode.FPS3D && CameraManager.Instance.PlayerCameraMode != CameraMode.FPS2Dot5D)
             return;
 
         playerShot.Shot(2);

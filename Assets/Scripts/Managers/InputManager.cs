@@ -30,10 +30,9 @@ public class InputManager : Singleton<InputManager>
             return;
 
         // Camera and Movement Mode
-        if (Input.GetKey(SetCameraAndMovementMode))
+        if (Input.GetKeyDown(SetCameraAndMovementMode))
         {
-            HandleCameraMode();
-            HandleMovementMode();
+            HandleSetCameraAndMovementModeKeyDown();
         }
 
         // Fire
@@ -51,10 +50,6 @@ public class InputManager : Singleton<InputManager>
         {
             HandleAimKeyDown();
         }
-        if (Input.GetKeyUp(AimKeyCode))
-        {
-            HandleAimKeyUp();
-        }
     }
 
     private void HandleMovement()
@@ -62,44 +57,42 @@ public class InputManager : Singleton<InputManager>
         Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         bool isSprinting = Input.GetKey(SprintKeyCode) && moveInput != Vector2.zero;
 
-        PlayerManager.Instance.PlayerMove(moveInput);
-        PlayerManager.Instance.PlayerSprint(isSprinting);
+        // trigger PlayerMove event
+        InputEventManager.TriggerPlayerMove(moveInput);
+        // trigger PlayerSprint event
+        InputEventManager.TriggerPlayerSprint(isSprinting);
     }
 
-    private void HandleCameraMode()
+    private void HandleSetCameraAndMovementModeKeyDown()
     {
-        CameraManager.Instance.ChangeCharacterCameraMode();
         StartCoroutine(Utility.InvokeBeforeAndAfterSecondes(2.0f, () => { KeyInteractable = false; }, () => { KeyInteractable = true; }));
+
+        // trigger ChangePlayerCameraMode event
+        InputEventManager.TriggerChangePlayerCameraMode();
+        // trigger ChangePlayerMoveMode event
+        InputEventManager.TriggerChangePlayerMoveMode();
     }
 
-    private void HandleMovementMode()
-    {
-        PlayerManager.Instance.ChangePlayerMoveMode();
-    }
-
-    private void HandleJumpKey()
+    private void HandleJumpKeyDown()
     {
         // TODO:
     }
 
     private void HandleFireKeyDown()
     {
-        PlayerManager.Instance.PlayerShot();
+        // trigger PlayerBeginShot event
+        InputEventManager.TriggerPlayerBeginShot();
     }
 
     private void HandleFireKeyUp()
     {
-        PlayerManager.Instance.PlayerStopShot();
+        // trigger PlayerEndShot event
+        InputEventManager.TriggerPlayerEndShot();
     }
 
     private void HandleAimKeyDown()
     {
-        CameraManager.Instance.CameraAim();
-        PlayerManager.Instance.PlayerAim();
-    }
-
-    private void HandleAimKeyUp()
-    {
-
+        // trigger PlayerCameraAim event
+        InputEventManager.TriggerPlayerCameraAim();
     }
 }

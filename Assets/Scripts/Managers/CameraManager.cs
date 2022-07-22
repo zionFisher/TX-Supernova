@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class CameraManager : Singleton<CameraManager>
 {
-    public CameraMode CharacterCameraMode
+    public CameraMode PlayerCameraMode
     {
         get => _characterCameraMode;
         set
@@ -44,18 +44,29 @@ public class CameraManager : Singleton<CameraManager>
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(ThirdRDPersonCamera);
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(TwoDotFiveDCamera);
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(FPSCamera);
-        CharacterCameraMode = CameraMode.ThirdRDPerson;
+        PlayerCameraMode = CameraMode.ThirdRDPerson;
+
+        InputEventManager.EventChangePlayerCameraMode += ChangePlayerCameraMode;
+        InputEventManager.EventPlayerCameraAim += PlayerCameraAim;
     }
 
-    public void ChangeCharacterCameraMode()
+    protected override void OnDestroy()
     {
-        if (CharacterCameraMode == CameraMode.ThirdRDPerson)
-            CharacterCameraMode = CameraMode.TwoDotFiveD;
-        else if (CharacterCameraMode == CameraMode.TwoDotFiveD)
-            CharacterCameraMode = CameraMode.ThirdRDPerson;
+        InputEventManager.EventChangePlayerCameraMode -= ChangePlayerCameraMode;
+        InputEventManager.EventPlayerCameraAim -= PlayerCameraAim;
+
+        base.OnDestroy();
     }
 
-    public void CameraAim()
+    public void ChangePlayerCameraMode()
+    {
+        if (PlayerCameraMode == CameraMode.ThirdRDPerson)
+            PlayerCameraMode = CameraMode.TwoDotFiveD;
+        else if (PlayerCameraMode == CameraMode.TwoDotFiveD)
+            PlayerCameraMode = CameraMode.ThirdRDPerson;
+    }
+
+    public void PlayerCameraAim()
     {
         CameraAiming = !CameraAiming;
     }
@@ -64,17 +75,17 @@ public class CameraManager : Singleton<CameraManager>
     {
         if (aiming)
         {
-            if (CharacterCameraMode == CameraMode.ThirdRDPerson)
-                CharacterCameraMode = CameraMode.FPS3D;
-            if (CharacterCameraMode == CameraMode.TwoDotFiveD)
-                CharacterCameraMode = CameraMode.FPS2Dot5D;
+            if (PlayerCameraMode == CameraMode.ThirdRDPerson)
+                PlayerCameraMode = CameraMode.FPS3D;
+            if (PlayerCameraMode == CameraMode.TwoDotFiveD)
+                PlayerCameraMode = CameraMode.FPS2Dot5D;
         }
         else
         {
-            if (CharacterCameraMode == CameraMode.FPS3D)
-                CharacterCameraMode = CameraMode.ThirdRDPerson;
-            if (CharacterCameraMode == CameraMode.FPS2Dot5D)
-                CharacterCameraMode = CameraMode.TwoDotFiveD;
+            if (PlayerCameraMode == CameraMode.FPS3D)
+                PlayerCameraMode = CameraMode.ThirdRDPerson;
+            if (PlayerCameraMode == CameraMode.FPS2Dot5D)
+                PlayerCameraMode = CameraMode.TwoDotFiveD;
         }
     }
 
