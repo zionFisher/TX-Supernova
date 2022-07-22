@@ -27,7 +27,7 @@ public class PlayerShot : MonoBehaviour
 
     private void Awake()
     {
-        layerMask = 1 << LayerMask.NameToLayer("Raycast Target");
+        layerMask = 1 << LayerMask.NameToLayer("Reflect");
         LightLauncher = ThirdRDLightLauncher;
     }
 
@@ -83,7 +83,7 @@ public class PlayerShot : MonoBehaviour
     private void CastFirstLaserBeamThirdRDPerson()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
             LightCreator.SetPosition(1, hit.point);
             CastLaserBeam(hit, 2);
@@ -95,7 +95,7 @@ public class PlayerShot : MonoBehaviour
         Vector3 launchPosition = LightLauncher.position;
 
         Ray detect = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(detect, out RaycastHit detectHit, 1000, layerMask))
+        if (Physics.Raycast(detect, out RaycastHit detectHit))
         {
             Vector3 detectPosition = detectHit.point;
             Vector3 endPosition = new Vector3(detectPosition.x, launchPosition.y, detectPosition.z);
@@ -103,7 +103,7 @@ public class PlayerShot : MonoBehaviour
             Vector3 launchDirection = endPosition - launchPosition;
 
             Ray ray = new Ray(launchPosition, launchDirection);
-            if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 LightCreator.SetPosition(1, hit.point);
                 CastLaserBeam(hit, 2);

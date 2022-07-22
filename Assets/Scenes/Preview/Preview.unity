@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2484.8418, g: 2533.7969, b: 3605.086, a: 1}
+  m_IndirectSpecularColor: {r: 2480.9805, g: 2531.2676, b: 3604.0938, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 128379249}
   - component: {fileID: 128379248}
   - component: {fileID: 128379247}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 275455271}
   - component: {fileID: 275455270}
   - component: {fileID: 275455269}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Wall Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 590096558}
   - component: {fileID: 590096557}
   - component: {fileID: 590096556}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Wall Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1475,7 +1475,7 @@ GameObject:
   - component: {fileID: 618686936}
   - component: {fileID: 618686935}
   - component: {fileID: 618686934}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Wall Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1790,7 +1790,7 @@ GameObject:
   - component: {fileID: 682806664}
   - component: {fileID: 682806663}
   - component: {fileID: 682806662}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2336,7 +2336,7 @@ GameObject:
   - component: {fileID: 1165416616}
   - component: {fileID: 1165416615}
   - component: {fileID: 1165416614}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Wall Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
