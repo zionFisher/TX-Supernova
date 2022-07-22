@@ -12,3 +12,8 @@ public enum ShotState
 {
     StandBy, Shoting
 }
+
+public enum ShotMode
+{
+    ThirdRDPerson, TwoDotFiveD
+}

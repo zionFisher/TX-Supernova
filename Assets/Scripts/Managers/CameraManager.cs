@@ -5,6 +5,10 @@ using Cinemachine;
 
 public class CameraManager : Singleton<CameraManager>
 {
+    public CinemachineVirtualCamera ThirdRDPersonCamera;
+    public CinemachineVirtualCamera TwoDotFiveDCamera;
+    public CinemachineVirtualCamera FPSCamera;
+
     public CameraMode PlayerCameraMode
     {
         get => _characterCameraMode;
@@ -35,10 +39,6 @@ public class CameraManager : Singleton<CameraManager>
     private bool _cameraAiming;
     private int characterCameraStandardPriority = 10;
 
-    public CinemachineVirtualCamera ThirdRDPersonCamera;
-    public CinemachineVirtualCamera TwoDotFiveDCamera;
-    public CinemachineVirtualCamera FPSCamera;
-
     private void Start()
     {
         Utility.CheckUnassignedVar<CinemachineVirtualCamera>(ThirdRDPersonCamera);
@@ -60,6 +60,9 @@ public class CameraManager : Singleton<CameraManager>
 
     public void ChangePlayerCameraMode()
     {
+        if (CameraAiming == true)
+            return;
+
         if (PlayerCameraMode == CameraMode.ThirdRDPerson)
             PlayerCameraMode = CameraMode.TwoDotFiveD;
         else if (PlayerCameraMode == CameraMode.TwoDotFiveD)

@@ -20,7 +20,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
         InputEventManager.EventPlayerMove += PlayerMove;
         InputEventManager.EventPlayerSprint += PlayerSprint;
-        InputEventManager.EventChangePlayerMoveMode += ChangePlayerMoveMode;
+        InputEventManager.EventChangePlayerMoveAndShotMode += ChangePlayerMoveAndShotMode;
         InputEventManager.EventPlayerBeginShot += PlayerShot;
         InputEventManager.EventPlayerEndShot += PlayerStopShot;
         InputEventManager.EventPlayerCameraAim += PlayerAim;
@@ -30,7 +30,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         InputEventManager.EventPlayerMove -= PlayerMove;
         InputEventManager.EventPlayerSprint -= PlayerSprint;
-        InputEventManager.EventChangePlayerMoveMode -= ChangePlayerMoveMode;
+        InputEventManager.EventChangePlayerMoveAndShotMode -= ChangePlayerMoveAndShotMode;
         InputEventManager.EventPlayerBeginShot -= PlayerShot;
         InputEventManager.EventPlayerEndShot -= PlayerAim;
         InputEventManager.EventPlayerCameraAim -= PlayerAim;
@@ -45,7 +45,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void PlayerAim()
     {
-        if (CameraManager.Instance.PlayerCameraMode == CameraMode.TwoDotFiveD)
+        if (CameraManager.Instance.PlayerCameraMode == CameraMode.TwoDotFiveD || CameraManager.Instance.PlayerCameraMode == CameraMode.FPS2Dot5D)
             return;
 
         if (CameraManager.Instance.CameraAiming == true)
@@ -77,8 +77,12 @@ public class PlayerManager : Singleton<PlayerManager>
         playerShot.Clear();
     }
 
-    public void ChangePlayerMoveMode()
+    public void ChangePlayerMoveAndShotMode()
     {
+        if (CameraManager.Instance.CameraAiming == true)
+            return;
+
         playerMove.ChangeMoveMode();
+        playerShot.ChangeShotMode();
     }
 }

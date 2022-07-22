@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimation))]
 public class PlayerMovement : MonoBehaviour
 {
-    public MovementMode CharacterMovementMode = MovementMode.ThirdRDPerson;
+    public MovementMode PlayerMovementMode = MovementMode.ThirdRDPerson;
     public float TurnSpeed = 10f;
 
     private PlayerAnimation playerAnimation;
@@ -21,19 +21,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeMoveMode()
     {
-        if (CharacterMovementMode == MovementMode.ThirdRDPerson)
-            CharacterMovementMode = MovementMode.TwoDotFiveD;
-        else if (CharacterMovementMode == MovementMode.TwoDotFiveD)
-            CharacterMovementMode = MovementMode.ThirdRDPerson;
+        if (PlayerMovementMode == MovementMode.ThirdRDPerson)
+            PlayerMovementMode = MovementMode.TwoDotFiveD;
+        else if (PlayerMovementMode == MovementMode.TwoDotFiveD)
+            PlayerMovementMode = MovementMode.ThirdRDPerson;
     }
 
     public void Move(Vector2 moveInput)
     {
         this.moveInput = moveInput;
 
-        if (CharacterMovementMode == MovementMode.ThirdRDPerson)
+        if (PlayerMovementMode == MovementMode.ThirdRDPerson)
             ThirdRDPersonMove();
-        else if (CharacterMovementMode == MovementMode.TwoDotFiveD)
+        else if (PlayerMovementMode == MovementMode.TwoDotFiveD)
             TwoDotFiveDMove();
     }
 

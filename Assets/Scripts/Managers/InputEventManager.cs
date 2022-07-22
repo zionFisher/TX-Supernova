@@ -18,8 +18,8 @@ public static class InputEventManager
     public static Action EventPlayerCameraAim;
     public static void TriggerPlayerCameraAim() { if (EventPlayerCameraAim == null) return; EventPlayerCameraAim(); }
 
-    public static Action EventChangePlayerMoveMode;
-    public static void TriggerChangePlayerMoveMode() { if (EventChangePlayerMoveMode == null) return; EventChangePlayerMoveMode(); }
+    public static Action EventChangePlayerMoveAndShotMode;
+    public static void TriggerChangePlayerMoveAndShotMode() { if (EventChangePlayerMoveAndShotMode == null) return; EventChangePlayerMoveAndShotMode(); }
 
     public static Action EventPlayerBeginShot;
     public static void TriggerPlayerBeginShot() { if (EventPlayerBeginShot == null) return; EventPlayerBeginShot(); }

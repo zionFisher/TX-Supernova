@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2484.2012, g: 2533.875, b: 3605.664, a: 1}
+  m_IndirectSpecularColor: {r: 2484.8418, g: 2533.7969, b: 3605.086, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -835,6 +835,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &302867035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302867036}
+  m_Layer: 0
+  m_Name: TwoDotFiveD Light Launcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &302867036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302867035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4921245346786641}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432432459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,7 +1125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 530538790}
   m_Layer: 0
-  m_Name: Light Launcher
+  m_Name: ThirdRD Light Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4017,7 +4048,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05
+        value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -4065,7 +4096,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 50
+    numCornerVertices: 1
     numCapVertices: 50
     alignment: 0
     textureMode: 1
@@ -4086,7 +4117,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4921245346786641}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2097179812
 GameObject:
@@ -6106,7 +6137,7 @@ Transform:
   m_Children:
   - {fileID: 4807132383520481}
   m_Father: {fileID: 4921245346786641}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4718308327101005
 Transform:
@@ -6293,7 +6324,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4921245346786641}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4902841792980193
 Transform:
@@ -6357,6 +6388,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1538230224}
+  - {fileID: 302867036}
   - {fileID: 4861991083553227}
   - {fileID: 4710283035333483}
   - {fileID: 2089980192}
@@ -6505,7 +6537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0783d5441fa47542b0549cc4e5f56b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterMovementMode: 0
+  PlayerMovementMode: 0
   TurnSpeed: 10
 --- !u!114 &136696894902315322
 MonoBehaviour:
@@ -6520,7 +6552,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightCreator: {fileID: 2089980191}
-  LightLauncher: {fileID: 530538790}
+  ThirdRDLightLauncher: {fileID: 530538790}
+  TwoDotFiveDLightLauncher: {fileID: 302867036}
 --- !u!137 &137876666343651523
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

@@ -70,7 +70,7 @@ public class InputManager : Singleton<InputManager>
         // trigger ChangePlayerCameraMode event
         InputEventManager.TriggerChangePlayerCameraMode();
         // trigger ChangePlayerMoveMode event
-        InputEventManager.TriggerChangePlayerMoveMode();
+        InputEventManager.TriggerChangePlayerMoveAndShotMode();
     }
 
     private void HandleJumpKeyDown()
