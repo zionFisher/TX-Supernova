@@ -18,7 +18,21 @@ public class CameraManager : Singleton<CameraManager>
         }
     }
 
+    public bool CameraAiming
+    {
+        get => _cameraAiming;
+        set
+        {
+            if (value == _cameraAiming)
+                return;
+
+            _cameraAiming = value;
+            UpdateCameraAiming(_cameraAiming);
+        }
+    }
+
     private CameraMode _characterCameraMode;
+    private bool _cameraAiming;
     private int characterCameraStandardPriority = 10;
 
     public CinemachineVirtualCamera ThirdRDPersonCamera;
@@ -41,7 +55,12 @@ public class CameraManager : Singleton<CameraManager>
             CharacterCameraMode = CameraMode.ThirdRDPerson;
     }
 
-    public void CameraAim(bool aiming)
+    public void CameraAim()
+    {
+        CameraAiming = !CameraAiming;
+    }
+
+    private void UpdateCameraAiming(bool aiming)
     {
         if (aiming)
         {

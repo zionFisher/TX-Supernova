@@ -94,13 +94,12 @@ public class InputManager : Singleton<InputManager>
 
     private void HandleAimKeyDown()
     {
-        CameraManager.Instance.CameraAim(true);
-        PlayerManager.Instance.PlayerAim(true);
+        CameraManager.Instance.CameraAim();
+        PlayerManager.Instance.PlayerAim();
     }
 
     private void HandleAimKeyUp()
     {
-        CameraManager.Instance.CameraAim(false);
-        PlayerManager.Instance.PlayerAim(false);
+
     }
 }

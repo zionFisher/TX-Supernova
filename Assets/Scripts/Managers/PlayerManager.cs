@@ -24,12 +24,12 @@ public class PlayerManager : Singleton<PlayerManager>
         PlayerMesh.SetActive(active);
     }
 
-    public void PlayerAim(bool aiming)
+    public void PlayerAim()
     {
         if (CameraManager.Instance.CharacterCameraMode == CameraMode.TwoDotFiveD)
             return;
 
-        if (aiming)
+        if (CameraManager.Instance.CameraAiming == true)
             SetPlayerMeshActive(false);
         else
             SetPlayerMeshActive(true);
