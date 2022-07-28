@@ -141,10 +141,10 @@ public class PlayerShot : MonoBehaviour
 
         if (hitInfo.transform.tag == "Reflect")
         {
-            Vector3 inVec = curPosition - prePosition;
-            Vector3 reflectVec = Vector3.Reflect(inVec, hitInfo.normal);
+            Vector3 inDir = curPosition - prePosition;
+            Vector3 reflectDir = Vector3.Reflect(inDir, hitInfo.normal);
 
-            Ray ray = new Ray(hitInfo.point, reflectVec);
+            Ray ray = new Ray(hitInfo.point, reflectDir);
             if (Physics.Raycast(ray, out RaycastHit reflectHit))
             {
                 LightCreator.SetPosition(positionIndex, reflectHit.point);
@@ -158,7 +158,23 @@ public class PlayerShot : MonoBehaviour
 
         if (hitInfo.transform.tag == "Refract")
         {
+            RefractObject ro = hitInfo.transform.gameObject.GetComponent<RefractObject>();
+            if (ro == null)
+                Debug.LogError("Please add RefractObject component to gameObject with tag \"Refract\".");
 
+            Vector3 inDir = curPosition - prePosition;
+            Vector3 refractDir = RefractLighting.Refract(inDir, hitInfo.normal, ro.RefractFactor / 1.0f);
+
+            Ray ray = new Ray(hitInfo.point, refractDir);
+            if (Physics.Raycast(ray, out RaycastHit refractHit))
+            {
+                LightCreator.SetPosition(positionIndex, refractHit.point);
+                CastRestLaserBeam(positionIndex + 1, refractHit, refractHit.point, curPosition);
+            }
+            else
+            {
+                IgnoreRestBeam(positionIndex);
+            }
         }
     }
 

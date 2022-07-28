@@ -36,7 +36,7 @@ public class CameraManager : Singleton<CameraManager>
     }
 
     private CameraMode _characterCameraMode;
-    private bool _cameraAiming;
+    private bool _cameraAiming = false;
     private int characterCameraStandardPriority = 10;
 
     private void Start()
@@ -72,6 +72,7 @@ public class CameraManager : Singleton<CameraManager>
     public void PlayerCameraAim()
     {
         CameraAiming = !CameraAiming;
+        PlayerManager.Instance.PlayerAim(CameraAiming);
     }
 
     private void UpdateCameraAiming(bool aiming)

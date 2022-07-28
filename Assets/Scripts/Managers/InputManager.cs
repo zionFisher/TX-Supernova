@@ -12,7 +12,7 @@ public class InputManager : Singleton<InputManager>
     public KeyCode JumpKeyCode              = KeyCode.Space;
     public KeyCode FireKeyCode              = KeyCode.Mouse0;
     public KeyCode AimKeyCode               = KeyCode.Mouse1;
-    
+
     // Process Fixed Event
     private void FixedUpdate()
     {
@@ -75,7 +75,7 @@ public class InputManager : Singleton<InputManager>
 
     private void HandleJumpKeyDown()
     {
-        // trigger PlayerJump Evvent
+        // trigger PlayerJump Event
         InputEventManager.TriggerPlayerJump();
     }
 

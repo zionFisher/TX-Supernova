@@ -16,5 +16,5 @@ public class ReflectObject : MonoBehaviour
         }
     }
 
-    private float _reflectFactor;
+    [SerializeField] private float _reflectFactor;
 }

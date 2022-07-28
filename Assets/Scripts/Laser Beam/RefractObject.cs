@@ -16,5 +16,5 @@ public class RefractObject : MonoBehaviour
         }
     }
 
-    private float _refractFactor;
+    [SerializeField] private float _refractFactor;
 }
