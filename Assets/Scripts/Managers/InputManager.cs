@@ -21,6 +21,9 @@ public class InputManager : Singleton<InputManager>
 
         // Movement
         HandleMovement();
+
+        // Camera zoom in zoom out
+        HandleCameraZoom();
     }
 
     // Process Key Event
@@ -63,8 +66,19 @@ public class InputManager : Singleton<InputManager>
         InputEventManager.TriggerPlayerSprint(isSprinting);
     }
 
+    private void HandleCameraZoom()
+    {
+        float zoomOffset = Input.GetAxis("Mouse ScrollWheel");
+
+        // trigger Camera Zoom Event
+        InputEventManager.TriggerPlayerCameraZoom(zoomOffset);
+    }
+
     private void HandleSetCameraAndMovementModeKeyDown()
     {
+        if (CameraManager.Instance.CameraAiming == true)
+            return;
+
         StartCoroutine(Utility.InvokeBeforeAndAfterSecondes(2.0f, () => { KeyInteractable = false; }, () => { KeyInteractable = true; }));
 
         // trigger ChangePlayerCameraMode event

@@ -4,7 +4,7 @@ using UnityEngine;
 public static class InputEventManager
 {
     public static Action<Vector2> EventPlayerMove;
-    public static void TriggerPlayerMove(Vector2 moveInput){ if (EventPlayerMove == null) return; EventPlayerMove(moveInput); }
+    public static void TriggerPlayerMove(Vector2 moveInput) { if (EventPlayerMove == null) return; EventPlayerMove(moveInput); }
 
     public static Action<bool> EventPlayerSprint;
     public static void TriggerPlayerSprint(bool isSprinting) { if (EventPlayerSprint == null) return; EventPlayerSprint(isSprinting); }
@@ -17,6 +17,9 @@ public static class InputEventManager
 
     public static Action EventPlayerCameraAim;
     public static void TriggerPlayerCameraAim() { if (EventPlayerCameraAim == null) return; EventPlayerCameraAim(); }
+
+    public static Action<float> EventPlayerCameraZoom;
+    public static void TriggerPlayerCameraZoom(float zoomOffset) { if (EventPlayerCameraZoom == null) return; EventPlayerCameraZoom(zoomOffset); }
 
     public static Action EventChangePlayerMoveAndShotMode;
     public static void TriggerChangePlayerMoveAndShotMode() { if (EventChangePlayerMoveAndShotMode == null) return; EventChangePlayerMoveAndShotMode(); }
