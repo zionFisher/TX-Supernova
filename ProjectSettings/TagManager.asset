@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Reflect
   - Refract
+  - Light Beam
+  - Breaker
+  - Breakable
+  - Broken
   layers:
   - Default
   - TransparentFX
