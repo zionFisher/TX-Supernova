@@ -100,7 +100,9 @@ public class PlayerShot : MonoBehaviour
         Vector3 launchPosition = LightLauncher.position;
 
         Ray detect = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(detect, out RaycastHit detectHit))
+        int floorMask = LayerMask.NameToLayer("Floor");
+        LayerMask mask = (1 << floorMask);
+        if (Physics.Raycast(detect, out RaycastHit detectHit, 1000, mask))
         {
             Vector3 detectPosition = detectHit.point;
             Vector3 endPosition = new Vector3(detectPosition.x, launchPosition.y, detectPosition.z);
