@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        animator.fireEvents = false;
     }
 
     public float GetSpeed()
