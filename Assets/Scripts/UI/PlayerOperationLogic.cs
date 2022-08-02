@@ -2,30 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraStateInfoLogic : LogicBase
+public class PlayerOperationLogic : LogicBase
 {
-    private CameraStateInfoCtrl ctrl;
+    private PlayerOperationCtrl ctrl;
 
-    public CameraStateInfoLogic() : base(ZUIName.CameraStateInfoName)
+    public PlayerOperationLogic() : base(ZUIName.PlayerOperationName)
     {
     }
 
     protected override void OnLoad()
     {
         base.OnLoad();
-        ctrl = Ctrl as CameraStateInfoCtrl;
+        ctrl = Ctrl as PlayerOperationCtrl;
 
-        UpdateCameraStateInfo(CameraManager.Instance.PlayerCameraMode);
-        CameraManager.Instance.EventPlayerCameraUpdate += UpdateCameraStateInfo;
+        UpdatePlayerOperation(CameraManager.Instance.PlayerCameraMode);
+        CameraManager.Instance.EventPlayerCameraUpdate += UpdatePlayerOperation;
     }
 
     protected override void Dispose()
     {
-        CameraManager.Instance.EventPlayerCameraUpdate -= UpdateCameraStateInfo;
+        CameraManager.Instance.EventPlayerCameraUpdate -= UpdatePlayerOperation;
         base.Dispose();
     }
 
-    private void UpdateCameraStateInfo(CameraMode mode)
+
+    private void UpdatePlayerOperation(CameraMode mode)
     {
         ctrl.ThirdRDPersonView.SetActive(false);
         ctrl.ThirdRDPersonShotView.SetActive(false);
