@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Cinemachine;
 
@@ -15,6 +14,9 @@ public class CameraManager : Singleton<CameraManager>
     public float MaxTwoDotFiveDCameraDistance = 15f;
     public CinemachineVirtualCamera FPSCamera;
 
+    public Action<CameraMode> EventPlayerCameraUpdate;
+    public void TriggerPlayerCameraUpdate(CameraMode mode) { if (EventPlayerCameraUpdate == null) return; EventPlayerCameraUpdate(mode); }
+
     public CameraMode PlayerCameraMode
     {
         get => _characterCameraMode;
@@ -25,6 +27,7 @@ public class CameraManager : Singleton<CameraManager>
 
             _characterCameraMode = value;
             UpdateCameraPriority(_characterCameraMode);
+            TriggerPlayerCameraUpdate(value);
         }
     }
 
