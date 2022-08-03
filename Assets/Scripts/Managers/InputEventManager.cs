@@ -21,6 +21,9 @@ public static class InputEventManager
     public static Action<float> EventPlayerCameraZoom;
     public static void TriggerPlayerCameraZoom(float zoomOffset) { if (EventPlayerCameraZoom == null) return; EventPlayerCameraZoom(zoomOffset); }
 
+    public static Action<float> EventLaserBeamWaveBand;
+    public static void TriggerLaserBeamWaveBand(float bandOffset) { if (EventLaserBeamWaveBand == null) return; EventLaserBeamWaveBand(bandOffset); }
+
     public static Action EventChangePlayerMoveAndShotMode;
     public static void TriggerChangePlayerMoveAndShotMode() { if (EventChangePlayerMoveAndShotMode == null) return; EventChangePlayerMoveAndShotMode(); }
 

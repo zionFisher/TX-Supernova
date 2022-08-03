@@ -7,6 +7,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public GameObject PlayerRoot;
     public GameObject PlayerHead;
     public GameObject PlayerMesh;
+    public GameObject PlayerGun;
 
     public int MaxTime = 2;
 
@@ -41,6 +42,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetPlayerMeshActive(bool active)
     {
         PlayerMesh.SetActive(active);
+        PlayerGun.SetActive(active);
     }
 
     public void PlayerAim(bool aiming)

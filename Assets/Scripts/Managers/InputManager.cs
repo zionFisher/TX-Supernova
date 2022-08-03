@@ -37,7 +37,7 @@ public class InputManager : Singleton<InputManager>
         HandleMovement();
 
         // Camera zoom in zoom out
-        HandleCameraZoom();
+        HandleScrollWheel();
     }
 
     // Process Key Event
@@ -80,12 +80,14 @@ public class InputManager : Singleton<InputManager>
         InputEventManager.TriggerPlayerSprint(isSprinting);
     }
 
-    private void HandleCameraZoom()
+    private void HandleScrollWheel()
     {
         float zoomOffset = Input.GetAxis("Mouse ScrollWheel");
 
         // trigger Camera Zoom Event
         InputEventManager.TriggerPlayerCameraZoom(zoomOffset);
+        // trigger Wave Band
+        InputEventManager.TriggerLaserBeamWaveBand(zoomOffset);
     }
 
     private void HandleSetCameraAndMovementModeKeyDown()
