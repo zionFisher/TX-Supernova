@@ -9,5 +9,6 @@ public class Stage1DefaultUILoader : MonoBehaviour
         UIManager.Instance.LoadUI(typeof(CameraStateInfoLogic));
         UIManager.Instance.LoadUI(typeof(PlayerOperationLogic));
         UIManager.Instance.LoadUI(typeof(GameInfoLogic));
+        UIManager.Instance.LoadUI(typeof(LightFrequencyLogic));
     }
 }

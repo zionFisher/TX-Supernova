@@ -8,6 +8,10 @@ public class BreakableObject : MonoBehaviour
 
     public float DelayTime = 1f;
 
+    public float LowerFrequency;
+
+    public float HigherFrequency;
+
     private float totalTime = 0f;
 
     private void Start()
@@ -33,9 +37,10 @@ public class BreakableObject : MonoBehaviour
         totalTime += Time.deltaTime;
     }
 
-    public void BreakObject()
+    public void BreakObject(float frequency)
     {
-        enabled = true;
+        if (frequency <= HigherFrequency && frequency >= LowerFrequency)
+            enabled = true;
     }
 
     private void Break()

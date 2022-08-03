@@ -9,6 +9,11 @@ public class FrequencyInfo : MonoBehaviour
 
     public LaserBeamController LBC;
 
+    private void Start()
+    {
+        LBC = GameObject.Find("Light").GetComponent<LaserBeamController>();
+    }
+
     private void Update()
     {
         Frequency.text = LBC.curFrequency.ToString();

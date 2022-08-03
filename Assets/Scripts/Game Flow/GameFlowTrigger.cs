@@ -16,16 +16,19 @@ public class GameFlowTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (TriggerGameFlow && Information != null)
+        if (other.tag == "Player")
         {
-            TriggerGameFlow = false;
-            GameFlowManager.Instance.SetGameInfo(Information, true);
-
-            if (DisableObjects != null)
+            if (TriggerGameFlow && Information != null)
             {
-                foreach(var go in EnableObjects)
+                TriggerGameFlow = false;
+                GameFlowManager.Instance.SetGameInfo(Information, true);
+
+                if (DisableObjects != null)
                 {
-                    go.SetActive(true);
+                    foreach (var go in EnableObjects)
+                    {
+                        go.SetActive(true);
+                    }
                 }
             }
         }

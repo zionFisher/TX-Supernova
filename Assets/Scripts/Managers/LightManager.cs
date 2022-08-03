@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LightManager : Singleton<LightManager>
 {
+    public LaserBeamController LBC;
+
     private void Start()
     {
         LightEventManager.EventLightHitObject += LightHitObject;
@@ -18,11 +20,11 @@ public class LightManager : Singleton<LightManager>
     private void LightHitObject(GameObject hitObject)
     {
         if (hitObject.tag == "Breakable")
-            LightHitBreakableObject(hitObject);   
+            LightHitBreakableObject(hitObject, LBC.curFrequency);   
     }
 
-    private void LightHitBreakableObject(GameObject hitObject)
+    private void LightHitBreakableObject(GameObject hitObject, float frequency)
     {
-        hitObject.GetComponent<BreakableObject>().BreakObject();
+        hitObject.GetComponent<BreakableObject>().BreakObject(frequency);
     }
 }

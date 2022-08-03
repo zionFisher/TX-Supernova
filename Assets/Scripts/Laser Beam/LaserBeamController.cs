@@ -12,10 +12,12 @@ public class LaserBeamController : MonoBehaviour
 
     public float Intensity;
 
+    public float InnerWeight = 0.6f;
+
     public float curFrequency = 385;
     private float lower = 385;
     private float higher = 750;
-    private float[] FrequencyRange = new float[] { 384, 482, 503, 610, 659, 751 };
+    private float[] FrequencyRange = new float[] { 384, 384, 433, 493, 512, 565, 635, 705, 751, 751 };
 
     private void Start()
     {
@@ -31,6 +33,9 @@ public class LaserBeamController : MonoBehaviour
 
     private void UpdateFrequency(float offset)
     {
+        if (CameraManager.Instance.PlayerCameraMode != CameraMode.FPS3D && CameraManager.Instance.PlayerCameraMode != CameraMode.FPS2Dot5D)
+            return;
+
         if (Mathf.Abs(offset) < 0.01)
             return;
 
@@ -41,21 +46,28 @@ public class LaserBeamController : MonoBehaviour
         if (curFrequency < lower)
             curFrequency = lower;
 
-        float curLower = 0, curHigher = 0;
-        int index = 0;
-        for (int i = 1; i < FrequencyRange.Length; i++)
+        float innerLower = 0, innerHigher = 0;
+        float outerLower = 0, outerHigher = 0;
+        int index = 1;
+        for (int i = 2; i < FrequencyRange.Length; i++)
         {
             if (curFrequency < FrequencyRange[i])
             {
-                curLower = FrequencyRange[i - 1];
-                curHigher = FrequencyRange[i];
+                innerLower = FrequencyRange[i - 1];
+                innerHigher = FrequencyRange[i];
+                outerLower = FrequencyRange[i - 2];
+                outerHigher = FrequencyRange[i + 1];
                 index = i;
                 break;
             }
         }
 
-        float percentage = (curFrequency - curLower) / (curHigher - curLower);
-        Color resColor = Colors[index] * percentage + Colors[index - 1] * (1 - percentage);
+        float innerPercentage = (curFrequency - innerLower) / (innerHigher - innerLower);
+        float outerPercentage = (curFrequency - outerLower) / (outerHigher - outerLower);
+        Color innerColor = Colors[index] * innerPercentage + Colors[index - 1] * (1 - innerPercentage);
+        Color outerColor = Colors[index + 1] * outerPercentage + Colors[index - 2] * (1 - outerPercentage);
+
+        Color resColor = InnerWeight * innerColor + (1 - InnerWeight) * outerColor;
 
         LineRenderer.material.SetColor("_Color", resColor * Mathf.Pow(2, Intensity));
     }

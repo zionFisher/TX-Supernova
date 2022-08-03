@@ -7,4 +7,5 @@ public static class ZUIName
     public static readonly string CameraStateInfoName = "Camera State Info";
     public static readonly string PlayerOperationName = "Player Operation";
     public static readonly string GameInfoName = "Game Info";
+    public static readonly string LightFrequencyName = "Light Frequency";
 }
