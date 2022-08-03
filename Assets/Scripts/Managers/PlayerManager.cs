@@ -59,6 +59,12 @@ public class PlayerManager : Singleton<PlayerManager>
         playerMove.Move(moveInput);
     }
 
+    public void PlayerStopMove()
+    {
+        playerMove.UpdateSpeed(0f);
+        playerAnim.SetSprint(false);
+    }
+
     public void PlayerSprint(bool isSprinting)
     {
         playerMove.Sprint(isSprinting);

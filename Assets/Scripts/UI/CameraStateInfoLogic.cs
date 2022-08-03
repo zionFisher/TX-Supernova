@@ -17,12 +17,19 @@ public class CameraStateInfoLogic : LogicBase
 
         UpdateCameraStateInfo(CameraManager.Instance.PlayerCameraMode);
         CameraManager.Instance.EventPlayerCameraUpdate += UpdateCameraStateInfo;
+        GameEventManager.EventEnableGameInfo += UpdateCameraStateInfo;
     }
 
     protected override void Dispose()
     {
         CameraManager.Instance.EventPlayerCameraUpdate -= UpdateCameraStateInfo;
+        GameEventManager.EventEnableGameInfo -= UpdateCameraStateInfo;
         base.Dispose();
+    }
+
+    private void UpdateCameraStateInfo(bool enable)
+    {
+        ctrl.gameObject.SetActive(!enable);
     }
 
     private void UpdateCameraStateInfo(CameraMode mode)

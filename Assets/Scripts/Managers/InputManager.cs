@@ -23,6 +23,8 @@ public class InputManager : Singleton<InputManager>
     {
         KeyInteractable = false;
         AxisInteractable = false;
+
+        PlayerManager.Instance.PlayerStopMove();
     }
 
     // Process Fixed Event

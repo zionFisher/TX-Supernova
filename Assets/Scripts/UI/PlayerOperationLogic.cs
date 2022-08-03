@@ -17,14 +17,20 @@ public class PlayerOperationLogic : LogicBase
 
         UpdatePlayerOperation(CameraManager.Instance.PlayerCameraMode);
         CameraManager.Instance.EventPlayerCameraUpdate += UpdatePlayerOperation;
+        GameEventManager.EventEnableGameInfo += UpdatePlayerOperation;
     }
 
     protected override void Dispose()
     {
         CameraManager.Instance.EventPlayerCameraUpdate -= UpdatePlayerOperation;
+        GameEventManager.EventEnableGameInfo -= UpdatePlayerOperation;
         base.Dispose();
     }
 
+    private void UpdatePlayerOperation(bool enable)
+    {
+        ctrl.gameObject.SetActive(!enable);
+    }
 
     private void UpdatePlayerOperation(CameraMode mode)
     {

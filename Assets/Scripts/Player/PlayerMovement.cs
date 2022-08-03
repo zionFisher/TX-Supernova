@@ -54,6 +54,12 @@ public class PlayerMovement : MonoBehaviour
         UpdateTwoDotFiveDForward();
     }
 
+    public void UpdateSpeed(float speed)
+    {
+        this.speed = speed;
+        playerAnimation.SetSpeed(speed);
+    }
+
     private void UpdateSpeed()
     {
         speed = Mathf.Abs(moveInput.x) + Mathf.Abs(moveInput.y);
