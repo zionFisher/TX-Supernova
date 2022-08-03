@@ -13,6 +13,18 @@ public class InputManager : Singleton<InputManager>
     public KeyCode FireKeyCode              = KeyCode.Mouse0;
     public KeyCode AimKeyCode               = KeyCode.Mouse1;
 
+    public void StartMonitorInput()
+    {
+        KeyInteractable = true;
+        AxisInteractable = true;
+    }
+
+    public void StopMonitorInput()
+    {
+        KeyInteractable = false;
+        AxisInteractable = false;
+    }
+
     // Process Fixed Event
     private void FixedUpdate()
     {
