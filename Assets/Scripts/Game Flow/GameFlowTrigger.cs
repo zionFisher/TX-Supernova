@@ -18,6 +18,7 @@ public class GameFlowTrigger : MonoBehaviour
     {
         if (TriggerGameFlow && Information != null)
         {
+            TriggerGameFlow = false;
             GameFlowManager.Instance.SetGameInfo(Information, true);
 
             if (DisableObjects != null)
@@ -39,7 +40,5 @@ public class GameFlowTrigger : MonoBehaviour
                 go.SetActive(false);
             }
         }
-
-        TriggerGameFlow = false;
     }
 }
