@@ -86,7 +86,7 @@ public class PlayerShot : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             LightCreator.SetPosition(1, hit.point);
-            LightEventManager.TriggerLightHitObject(hit.transform.gameObject);
+            LightEventManager.Instance.TriggerLightHitObject(hit.transform.gameObject);
             CastRestLaserBeam(2, hit, hit.point, LightLauncher.position);
         }
         else
@@ -113,7 +113,7 @@ public class PlayerShot : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 LightCreator.SetPosition(1, hit.point);
-                LightEventManager.TriggerLightHitObject(hit.transform.gameObject);
+                LightEventManager.Instance.TriggerLightHitObject(hit.transform.gameObject);
                 CastRestLaserBeam(2, hit, hit.point, LightLauncher.position);
             }
             else
@@ -152,7 +152,7 @@ public class PlayerShot : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit reflectHit))
             {
                 LightCreator.SetPosition(positionIndex, reflectHit.point);
-                LightEventManager.TriggerLightHitObject(reflectHit.transform.gameObject);
+                LightEventManager.Instance.TriggerLightHitObject(reflectHit.transform.gameObject);
                 CastRestLaserBeam(positionIndex + 1, reflectHit, reflectHit.point, curPosition);
             }
             else
@@ -174,7 +174,7 @@ public class PlayerShot : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit refractHit))
             {
                 LightCreator.SetPosition(positionIndex, refractHit.point);
-                LightEventManager.TriggerLightHitObject(refractHit.transform.gameObject);
+                LightEventManager.Instance.TriggerLightHitObject(refractHit.transform.gameObject);
                 CastRestLaserBeam(positionIndex + 1, refractHit, refractHit.point, curPosition);
             }
             else

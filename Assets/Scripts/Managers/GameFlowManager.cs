@@ -11,11 +11,11 @@ public class GameFlowManager : Singleton<GameFlowManager>
 
     public void SetGameInfo(string information, bool enable)
     {
-        GameEventManager.TriggerUpdateGameInfo(information, enable);
+        GameEventManager.Instance.TriggerUpdateGameInfo(information, enable);
     }
 
     public void DisableGameInfo()
     {
-        GameEventManager.TriggerUpdateGameInfo("", false);
+        GameEventManager.Instance.TriggerUpdateGameInfo("", false);
     }
 }

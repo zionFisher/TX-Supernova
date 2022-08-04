@@ -8,12 +8,12 @@ public class LightManager : Singleton<LightManager>
 
     private void Start()
     {
-        LightEventManager.EventLightHitObject += LightHitObject;
+        LightEventManager.Instance.EventLightHitObject += LightHitObject;
     }
 
     protected override void OnDestroy()
     {
-        LightEventManager.EventLightHitObject -= LightHitObject;
+        // LightEventManager.Instance.EventLightHitObject -= LightHitObject;
         base.OnDestroy();
     }
 

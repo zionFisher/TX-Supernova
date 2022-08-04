@@ -16,12 +16,12 @@ public class GameInfoLogic : LogicBase
         ctrl = Ctrl as GameInfoCtrl;
 
         DisableGameInfo();
-        GameEventManager.EventUpdateGameInfo += SetGameInfo;
+        GameEventManager.Instance.EventUpdateGameInfo += SetGameInfo;
     }
 
     protected override void Dispose()
     {
-        GameEventManager.EventUpdateGameInfo -= SetGameInfo;
+        // GameEventManager.Instance.EventUpdateGameInfo -= SetGameInfo;
         base.Dispose();
     }
 
@@ -37,12 +37,12 @@ public class GameInfoLogic : LogicBase
     private void DisableGameInfo()
     {
         ctrl.gameObject.SetActive(false);
-        GameEventManager.TriggerEnableGameInfo(false);
+        GameEventManager.Instance.TriggerEnableGameInfo(false);
     }
 
     private void EnableGameInfo()
     {
         ctrl.gameObject.SetActive(true);
-        GameEventManager.TriggerEnableGameInfo(true);
+        GameEventManager.Instance.TriggerEnableGameInfo(true);
     }
 }

@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-public static class LightEventManager
+public class LightEventManager : Singleton<LightEventManager>
 {
-    public static Action<GameObject> EventLightHitObject;
-    public static void TriggerLightHitObject(GameObject hitObject) { if (EventLightHitObject == null) return; EventLightHitObject(hitObject); }
+    public Action<GameObject> EventLightHitObject;
+    public void TriggerLightHitObject(GameObject hitObject) { if (EventLightHitObject == null) return; EventLightHitObject(hitObject); }
 }

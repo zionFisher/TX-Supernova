@@ -18,7 +18,7 @@ public class GameInfoFunction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameEventManager.TriggerUpdateGameInfo("", false);
+            GameEventManager.Instance.TriggerUpdateGameInfo("", false);
         }
     }
 }

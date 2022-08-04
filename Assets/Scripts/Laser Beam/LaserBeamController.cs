@@ -23,12 +23,12 @@ public class LaserBeamController : MonoBehaviour
     {
         Utility.CheckUnassignedVar<LineRenderer>(LineRenderer);
 
-        InputEventManager.EventLaserBeamWaveBand += UpdateFrequency;
+        InputEventManager.Instance.EventLaserBeamWaveBand += UpdateFrequency;
     }
 
     private void OnDestroy()
     {
-        InputEventManager.EventLaserBeamWaveBand -= UpdateFrequency;
+        InputEventManager.Instance.EventLaserBeamWaveBand -= UpdateFrequency;
     }
 
     private void UpdateFrequency(float offset)

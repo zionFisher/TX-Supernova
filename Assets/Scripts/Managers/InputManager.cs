@@ -75,9 +75,9 @@ public class InputManager : Singleton<InputManager>
         bool isSprinting = Input.GetKey(SprintKeyCode) && moveInput != Vector2.zero;
 
         // trigger PlayerMove event
-        InputEventManager.TriggerPlayerMove(moveInput);
+        InputEventManager.Instance.TriggerPlayerMove(moveInput);
         // trigger PlayerSprint event
-        InputEventManager.TriggerPlayerSprint(isSprinting);
+        InputEventManager.Instance.TriggerPlayerSprint(isSprinting);
     }
 
     private void HandleScrollWheel()
@@ -85,9 +85,9 @@ public class InputManager : Singleton<InputManager>
         float zoomOffset = Input.GetAxis("Mouse ScrollWheel");
 
         // trigger Camera Zoom Event
-        InputEventManager.TriggerPlayerCameraZoom(zoomOffset);
+        InputEventManager.Instance.TriggerPlayerCameraZoom(zoomOffset);
         // trigger Wave Band
-        InputEventManager.TriggerLaserBeamWaveBand(zoomOffset);
+        InputEventManager.Instance.TriggerLaserBeamWaveBand(zoomOffset);
     }
 
     private void HandleSetCameraAndMovementModeKeyDown()
@@ -98,32 +98,32 @@ public class InputManager : Singleton<InputManager>
         StartCoroutine(Utility.InvokeBeforeAndAfterSecondes(2.0f, () => { KeyInteractable = false; }, () => { KeyInteractable = true; }));
 
         // trigger ChangePlayerCameraMode event
-        InputEventManager.TriggerChangePlayerCameraMode();
+        InputEventManager.Instance.TriggerChangePlayerCameraMode();
         // trigger ChangePlayerMoveMode event
-        InputEventManager.TriggerChangePlayerMoveAndShotMode();
+        InputEventManager.Instance.TriggerChangePlayerMoveAndShotMode();
     }
 
     private void HandleJumpKeyDown()
     {
         // trigger PlayerJump Event
-        InputEventManager.TriggerPlayerJump();
+        InputEventManager.Instance.TriggerPlayerJump();
     }
 
     private void HandleFireKeyDown()
     {
         // trigger PlayerBeginShot event
-        InputEventManager.TriggerPlayerBeginShot();
+        InputEventManager.Instance.TriggerPlayerBeginShot();
     }
 
     private void HandleFireKeyUp()
     {
         // trigger PlayerEndShot event
-        InputEventManager.TriggerPlayerEndShot();
+        InputEventManager.Instance.TriggerPlayerEndShot();
     }
 
     private void HandleAimKeyDown()
     {
         // trigger PlayerCameraAim event
-        InputEventManager.TriggerPlayerCameraAim();
+        InputEventManager.Instance.TriggerPlayerCameraAim();
     }
 }

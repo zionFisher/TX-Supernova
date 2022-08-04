@@ -21,20 +21,20 @@ public class PlayerManager : Singleton<PlayerManager>
         Utility.CheckUnassignedVar<GameObject>(PlayerHead);
         Utility.CheckUnassignedVar<GameObject>(PlayerMesh);
 
-        InputEventManager.EventPlayerMove += PlayerMove;
-        InputEventManager.EventPlayerSprint += PlayerSprint;
-        InputEventManager.EventChangePlayerMoveAndShotMode += ChangePlayerMoveAndShotMode;
-        InputEventManager.EventPlayerBeginShot += PlayerShot;
-        InputEventManager.EventPlayerEndShot += PlayerStopShot;
+        InputEventManager.Instance.EventPlayerMove += PlayerMove;
+        InputEventManager.Instance.EventPlayerSprint += PlayerSprint;
+        InputEventManager.Instance.EventChangePlayerMoveAndShotMode += ChangePlayerMoveAndShotMode;
+        InputEventManager.Instance.EventPlayerBeginShot += PlayerShot;
+        InputEventManager.Instance.EventPlayerEndShot += PlayerStopShot;
     }
 
     protected override void OnDestroy()
     {
-        InputEventManager.EventPlayerMove -= PlayerMove;
-        InputEventManager.EventPlayerSprint -= PlayerSprint;
-        InputEventManager.EventChangePlayerMoveAndShotMode -= ChangePlayerMoveAndShotMode;
-        InputEventManager.EventPlayerBeginShot -= PlayerShot;
-        InputEventManager.EventPlayerEndShot -= PlayerStopShot;
+        // InputEventManager.Instance.EventPlayerMove -= PlayerMove;
+        // InputEventManager.Instance.EventPlayerSprint -= PlayerSprint;
+        // InputEventManager.Instance.EventChangePlayerMoveAndShotMode -= ChangePlayerMoveAndShotMode;
+        // InputEventManager.Instance.EventPlayerBeginShot -= PlayerShot;
+        // InputEventManager.Instance.EventPlayerEndShot -= PlayerStopShot;
 
         base.OnDestroy();
     }

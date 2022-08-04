@@ -78,16 +78,16 @@ public class CameraManager : Singleton<CameraManager>
         twoDotFiveDFramingTransposer = TwoDotFiveDCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
         twoDotFiveDFramingTransposer.m_CameraDistance = CameraTwoDotFiveDDistance;
 
-        InputEventManager.EventChangePlayerCameraMode += ChangePlayerCameraMode;
-        InputEventManager.EventPlayerCameraAim += PlayerCameraAim;
-        InputEventManager.EventPlayerCameraZoom += PlayerCameraZoom;
+        InputEventManager.Instance.EventChangePlayerCameraMode += ChangePlayerCameraMode;
+        InputEventManager.Instance.EventPlayerCameraAim += PlayerCameraAim;
+        InputEventManager.Instance.EventPlayerCameraZoom += PlayerCameraZoom;
     }
 
     protected override void OnDestroy()
     {
-        InputEventManager.EventChangePlayerCameraMode -= ChangePlayerCameraMode;
-        InputEventManager.EventPlayerCameraAim -= PlayerCameraAim;
-        InputEventManager.EventPlayerCameraZoom -= PlayerCameraZoom;
+        // InputEventManager.Instance.EventChangePlayerCameraMode -= ChangePlayerCameraMode;
+        // InputEventManager.Instance.EventPlayerCameraAim -= PlayerCameraAim;
+        // InputEventManager.Instance.EventPlayerCameraZoom -= PlayerCameraZoom;
 
         base.OnDestroy();
     }

@@ -15,12 +15,12 @@ public class LightFrequencyLogic : LogicBase
         base.OnLoad();
         ctrl = Ctrl as LightFrequencyCtrl;
         ctrl.Frequency.text = "386";
-        GameEventManager.EventEnableGameInfo += UpdateLightFrequency;
+        GameEventManager.Instance.EventEnableGameInfo += UpdateLightFrequency;
     }
 
     protected override void Dispose()
     {
-        GameEventManager.EventEnableGameInfo -= UpdateLightFrequency;
+        // GameEventManager.Instance.EventEnableGameInfo -= UpdateLightFrequency;
         base.Dispose();
     }
 
