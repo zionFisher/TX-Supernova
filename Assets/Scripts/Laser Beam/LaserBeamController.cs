@@ -28,7 +28,7 @@ public class LaserBeamController : MonoBehaviour
 
     private void OnDestroy()
     {
-        InputEventManager.Instance.EventLaserBeamWaveBand -= UpdateFrequency;
+        // InputEventManager.Instance.EventLaserBeamWaveBand -= UpdateFrequency;
     }
 
     private void UpdateFrequency(float offset)
