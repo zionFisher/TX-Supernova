@@ -15,6 +15,7 @@ public class LaserBeamController : MonoBehaviour
     public float InnerWeight = 0.6f;
 
     public float curFrequency = 385;
+    private float frequency = 385f;
     private float lower = 385;
     private float higher = 750;
     private float[] FrequencyRange = new float[] { 384, 384, 433, 493, 512, 565, 635, 705, 751, 751 };
@@ -33,13 +34,15 @@ public class LaserBeamController : MonoBehaviour
 
     private void UpdateFrequency(float offset)
     {
-        if (CameraManager.Instance.PlayerCameraMode != CameraMode.FPS3D && CameraManager.Instance.PlayerCameraMode != CameraMode.FPS2Dot5D)
-            return;
-
         if (Mathf.Abs(offset) < 0.01)
             return;
 
-        curFrequency += offset * Speed;
+        if (CameraManager.Instance.PlayerCameraMode != CameraMode.FPS3D && CameraManager.Instance.PlayerCameraMode != CameraMode.FPS2Dot5D)
+            return;
+
+        int value = offset > 0.05f ? 1 : -1;
+        frequency += value * Time.deltaTime * Speed;
+        curFrequency = (int)frequency;
 
         if (curFrequency > higher)
             curFrequency = higher;
