@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    private static Dictionary<Type, LogicBase> uiPages = new Dictionary<Type, LogicBase>();
+    private Dictionary<Type, LogicBase> uiPages = new Dictionary<Type, LogicBase>();
 
     public GameObject UIRoot { get => _uiRoot; private set { _uiRoot = value; } }
 

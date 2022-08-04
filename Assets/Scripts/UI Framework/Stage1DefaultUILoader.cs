@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stage1DefaultUILoader : MonoBehaviour
 {
-    private void Start()
+    private void OnEnable()
     {
         UIManager.Instance.LoadUI(typeof(CameraStateInfoLogic));
         UIManager.Instance.LoadUI(typeof(PlayerOperationLogic));
