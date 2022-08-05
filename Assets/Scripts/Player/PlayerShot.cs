@@ -31,7 +31,7 @@ public class PlayerShot : MonoBehaviour
         LightLauncher = ThirdRDLightLauncher;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateLaserBeam();
     }
@@ -101,7 +101,9 @@ public class PlayerShot : MonoBehaviour
 
         Ray detect = Camera.main.ScreenPointToRay(Input.mousePosition);
         int floorMask = LayerMask.NameToLayer("Floor");
+        int weaponMask = LayerMask.NameToLayer("Weapon");
         LayerMask mask = (1 << floorMask);
+        LayerMask mask2 = ~(1 << weaponMask);
         if (Physics.Raycast(detect, out RaycastHit detectHit, 1000, mask))
         {
             Vector3 detectPosition = detectHit.point;
@@ -110,7 +112,7 @@ public class PlayerShot : MonoBehaviour
             Vector3 launchDirection = endPosition - launchPosition;
 
             Ray ray = new Ray(launchPosition, launchDirection);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000, mask2))
             {
                 LightCreator.SetPosition(1, hit.point);
                 LightEventManager.Instance.TriggerLightHitObject(hit.transform.gameObject);
@@ -169,9 +171,11 @@ public class PlayerShot : MonoBehaviour
 
             Vector3 inDir = curPosition - prePosition;
             Vector3 refractDir = RefractLighting.Refract(inDir, hitInfo.normal, ro.RefractFactor / 1.0f);
-
+            
             Ray ray = new Ray(hitInfo.point, refractDir);
-            if (Physics.Raycast(ray, out RaycastHit refractHit))
+            int refractLayer = LayerMask.NameToLayer("Refract");
+            LayerMask mask = ~(1 << refractLayer);
+            if (Physics.Raycast(ray, out RaycastHit refractHit, 1000, refractLayer))
             {
                 LightCreator.SetPosition(positionIndex, refractHit.point);
                 LightEventManager.Instance.TriggerLightHitObject(refractHit.transform.gameObject);

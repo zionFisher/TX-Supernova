@@ -94,7 +94,8 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void PlayerPickUp()
     {
-        playerPickUp.PickUp();
+        if (playerPickUp != null)
+            playerPickUp.PickUp();
     }
 
     public void PlayerStopShot()

@@ -22,7 +22,7 @@ public class LightManager : Singleton<LightManager>
         if (hitObject.tag == "Breakable")
             LightHitBreakableObject(hitObject, LBC.curFrequency);
         if (hitObject.tag == "Light Disk")
-            LightHitLightDisk(hitObject);
+            LightHitLightDisk(hitObject, LBC.curFrequency);
     }
 
     private void LightHitBreakableObject(GameObject hitObject, float frequency)
@@ -30,8 +30,8 @@ public class LightManager : Singleton<LightManager>
         hitObject.GetComponent<BreakableObject>().BreakObject(frequency);
     }
 
-    private void LightHitLightDisk(GameObject hitObject)
+    private void LightHitLightDisk(GameObject hitObject, float frequency)
     {
-        hitObject.GetComponent<LightDisk>().LightLightDisk();
+        hitObject.GetComponent<LightDisk>().LightLightDisk(frequency);
     }
 }

@@ -15,11 +15,21 @@ public static class RefractLighting
 
         float inputDotNormal = Vector3.Dot(input, normal);
         float k = 1.0f - refractRatio * refractRatio * (1.0f - inputDotNormal * inputDotNormal);
-        Vector3 T = refractRatio * input - (refractRatio * inputDotNormal + Mathf.Sqrt(k)) * normal;
-
-        if (k > 0)
-            return T;
-        else
+        if (k < 0f)
             return Vector3.zero;
+
+        float a;
+
+        if (inputDotNormal > 0.0f)
+        {
+            a = refractRatio * inputDotNormal - Mathf.Sqrt(k);
+        }
+        else
+        {
+            a = refractRatio * inputDotNormal + Mathf.Sqrt(k);
+        }
+
+        Vector3 refract = input * refractRatio - normal * a;
+        return refract;
     }
 }

@@ -7,6 +7,12 @@ public class LightDisk : MonoBehaviour
 {
     public Color TargatColor = new Color(0f, 0f, 0f, 1f);
 
+    public bool IsLighted;
+
+    public int LowerFrequency = 385;
+
+    public int HigherFrequency = 750;
+
     private Renderer Renderer;
 
     private Color previousColor;
@@ -19,17 +25,24 @@ public class LightDisk : MonoBehaviour
         previousColor = Renderer.material.color;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (clear == true && Renderer.material.color != previousColor)
+        {
             Renderer.material.color = previousColor;
+            IsLighted = false;
+        }
 
         clear = true;
     }
 
-    public void LightLightDisk()
+    public void LightLightDisk(float frequency)
     {
+        if (frequency > HigherFrequency || frequency < LowerFrequency)
+            return;
+
         Renderer.material.color = TargatColor;
+        IsLighted = true;
         clear = false;
     }
 }
