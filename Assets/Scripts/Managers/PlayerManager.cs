@@ -14,6 +14,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private PlayerAnimation playerAnim;
     [SerializeField] private PlayerMovement playerMove;
     [SerializeField] private PlayerShot playerShot;
+    [SerializeField] private PlayerPickUp playerPickUp;
 
     private void Start()
     {
@@ -24,7 +25,7 @@ public class PlayerManager : Singleton<PlayerManager>
         InputEventManager.Instance.EventPlayerMove += PlayerMove;
         InputEventManager.Instance.EventPlayerSprint += PlayerSprint;
         InputEventManager.Instance.EventChangePlayerMoveAndShotMode += ChangePlayerMoveAndShotMode;
-        InputEventManager.Instance.EventPlayerBeginShot += PlayerShot;
+        InputEventManager.Instance.EventPlayerBeginShot += PlayerFire;
         InputEventManager.Instance.EventPlayerEndShot += PlayerStopShot;
     }
 
@@ -72,12 +73,28 @@ public class PlayerManager : Singleton<PlayerManager>
         playerMove.Sprint(isSprinting);
     }
 
+    public void PlayerFire()
+    {
+        if (CameraManager.Instance.PlayerCameraMode == CameraMode.FPS3D || CameraManager.Instance.PlayerCameraMode == CameraMode.FPS2Dot5D)
+        {
+            PlayerShot();
+            return;
+        }
+        if (CameraManager.Instance.PlayerCameraMode == CameraMode.ThirdRDPerson || CameraManager.Instance.PlayerCameraMode == CameraMode.TwoDotFiveD)
+        {
+            PlayerPickUp();
+            return;
+        }
+    }
+
     public void PlayerShot()
     {
-        if (CameraManager.Instance.PlayerCameraMode != CameraMode.FPS3D && CameraManager.Instance.PlayerCameraMode != CameraMode.FPS2Dot5D)
-            return;
-
         playerShot.Shot(MaxTime);
+    }
+
+    public void PlayerPickUp()
+    {
+        playerPickUp.PickUp();
     }
 
     public void PlayerStopShot()

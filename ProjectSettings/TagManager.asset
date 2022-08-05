@@ -11,6 +11,7 @@ TagManager:
   - Breakable
   - Broken
   - Collide
+  - Light Disk
   layers:
   - Default
   - TransparentFX

@@ -31,7 +31,7 @@ public class PlayerShot : MonoBehaviour
         LightLauncher = ThirdRDLightLauncher;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         UpdateLaserBeam();
     }
