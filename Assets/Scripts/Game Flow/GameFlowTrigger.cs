@@ -36,11 +36,14 @@ public class GameFlowTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (DisableObjects != null)
+        if (other.tag == "Player")
         {
-            foreach (var go in DisableObjects)
+            if (DisableObjects != null)
             {
-                go.SetActive(false);
+                foreach (var go in DisableObjects)
+                {
+                    go.SetActive(false);
+                }
             }
         }
     }
