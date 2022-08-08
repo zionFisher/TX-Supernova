@@ -9,6 +9,9 @@ public class PlayerManager : Singleton<PlayerManager>
     public GameObject PlayerMesh;
     public GameObject PlayerGun;
 
+    public Material CommonMat;
+    public Material ShotMat;
+
     public int MaxTime = 2;
 
     [SerializeField] private PlayerAnimation playerAnim;
@@ -90,6 +93,8 @@ public class PlayerManager : Singleton<PlayerManager>
     public void PlayerShot()
     {
         playerShot.Shot(MaxTime);
+        if (PlayerMesh.GetComponent<Renderer>().material != ShotMat)
+            PlayerMesh.GetComponent<Renderer>().material = ShotMat;
     }
 
     public void PlayerPickUp()
@@ -101,6 +106,8 @@ public class PlayerManager : Singleton<PlayerManager>
     public void PlayerStopShot()
     {
         playerShot.Clear();
+        if (PlayerMesh.GetComponent<Renderer>().material != CommonMat)
+            PlayerMesh.GetComponent<Renderer>().material = CommonMat;
     }
 
     public void ChangePlayerMoveAndShotMode()

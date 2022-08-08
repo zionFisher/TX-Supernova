@@ -12,6 +12,7 @@ TagManager:
   - Broken
   - Collide
   - Light Disk
+  - Ring
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Refract
   - Floor
   - Weapon
-  - 
+  - Ring
   - 
   - 
   - 

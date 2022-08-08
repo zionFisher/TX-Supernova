@@ -24,6 +24,7 @@ public class PlayerShot : MonoBehaviour
     private ShotMode _playerShotMode = ShotMode.ThirdRDPerson;
     private Transform LightLauncher;
     private int layerMask;
+    private int previousCount;
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class PlayerShot : MonoBehaviour
     public void Shot(int maxReflectTime)
     {
         LightCreator.positionCount = maxReflectTime + 2;
+        previousCount = maxReflectTime + 2;
     }
 
     public void Clear()
@@ -72,6 +74,8 @@ public class PlayerShot : MonoBehaviour
         LightCreator.SetPosition(0, LightLauncher.position);
         if (LightCreator.positionCount <= 1)
             return;
+
+        LightCreator.positionCount = previousCount;
 
         // cast first laser beam
         if (PlayerShotMode == ShotMode.ThirdRDPerson)
@@ -101,9 +105,9 @@ public class PlayerShot : MonoBehaviour
 
         Ray detect = Camera.main.ScreenPointToRay(Input.mousePosition);
         int floorMask = LayerMask.NameToLayer("Floor");
-        int weaponMask = LayerMask.NameToLayer("Weapon");
+        int ringMask = LayerMask.NameToLayer("Ring");
         LayerMask mask = (1 << floorMask);
-        LayerMask mask2 = ~(1 << weaponMask);
+        LayerMask mask2 = ~(1 << ringMask);
         if (Physics.Raycast(detect, out RaycastHit detectHit, 1000, mask))
         {
             Vector3 detectPosition = detectHit.point;
@@ -112,7 +116,7 @@ public class PlayerShot : MonoBehaviour
             Vector3 launchDirection = endPosition - launchPosition;
 
             Ray ray = new Ray(launchPosition, launchDirection);
-            if (Physics.Raycast(ray, out RaycastHit hit, 1000, mask2))
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 LightCreator.SetPosition(1, hit.point);
                 LightEventManager.Instance.TriggerLightHitObject(hit.transform.gameObject);
@@ -139,10 +143,29 @@ public class PlayerShot : MonoBehaviour
         if (positionIndex >= LightCreator.positionCount)
             return;
 
-        if (hitInfo.transform.tag != "Reflect" && hitInfo.transform.tag != "Refract")
+        if (hitInfo.transform.tag != "Reflect" && hitInfo.transform.tag != "Refract" && hitInfo.transform.tag != "Ring")
         {
             IgnoreRestBeam(positionIndex);
             return;
+        }
+
+        if (hitInfo.transform.tag == "Ring")
+        {
+            LightCreator.positionCount = LightCreator.positionCount + 1;
+
+            Vector3 inDir = curPosition - prePosition;
+
+            Ray ray = new Ray(curPosition + inDir.normalized * 0.1f, inDir);
+            if (Physics.Raycast(ray, out RaycastHit ringHit))
+            {
+                LightCreator.SetPosition(positionIndex, ringHit.point);
+                LightEventManager.Instance.TriggerLightHitObject(ringHit.transform.gameObject);
+                CastRestLaserBeam(positionIndex + 1, ringHit, ringHit.point, curPosition);
+            }
+            else
+            {
+                IgnoreRestBeam(positionIndex);
+            }
         }
 
         if (hitInfo.transform.tag == "Reflect")
@@ -171,7 +194,7 @@ public class PlayerShot : MonoBehaviour
 
             Vector3 inDir = curPosition - prePosition;
             Vector3 refractDir = RefractLighting.Refract(inDir, hitInfo.normal, ro.RefractFactor / 1.0f);
-            
+
             Ray ray = new Ray(hitInfo.point, refractDir);
             int refractLayer = LayerMask.NameToLayer("Refract");
             LayerMask mask = ~(1 << refractLayer);
