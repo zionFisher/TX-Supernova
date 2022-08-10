@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Reflect
+  - Refract
+  - Light Beam
+  - Breaker
+  - Breakable
+  - Broken
+  - Collide
+  - Light Disk
+  - Ring
   layers:
   - Default
   - TransparentFX
@@ -11,11 +20,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Reflect
+  - Refract
+  - Floor
+  - Weapon
+  - Ring
   - 
   - 
   - 

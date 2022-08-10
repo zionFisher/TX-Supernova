@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LightManager : Singleton<LightManager>
+{
+    public LaserBeamController LBC;
+
+    private void Start()
+    {
+        LightEventManager.Instance.EventLightHitObject += LightHitObject;
+    }
+
+    protected override void OnDestroy()
+    {
+        // LightEventManager.Instance.EventLightHitObject -= LightHitObject;
+        base.OnDestroy();
+    }
+
+    private void LightHitObject(GameObject hitObject)
+    {
+        if (hitObject.tag == "Breakable")
+            LightHitBreakableObject(hitObject, LBC.curFrequency);
+        if (hitObject.tag == "Light Disk")
+            LightHitLightDisk(hitObject, LBC.curFrequency);
+        if (hitObject.tag == "Ring")
+            LightRing(hitObject, LBC.curFrequency);
+    }
+
+    private void LightHitBreakableObject(GameObject hitObject, float frequency)
+    {
+        hitObject.GetComponent<BreakableObject>().BreakObject(frequency);
+    }
+
+    private void LightHitLightDisk(GameObject hitObject, float frequency)
+    {
+        hitObject.GetComponent<LightDisk>().LightLightDisk(frequency);
+    }
+
+    private void LightRing(GameObject hitObject, float frequency)
+    {
+        hitObject.GetComponent<Ring>().LightRing(frequency);
+    }
+}
